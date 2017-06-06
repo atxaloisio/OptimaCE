@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="81503ad31e7c475db8655c74f68c3001" Name="Diagram1" ZoomLevel="65">
+        <EntityTypeShape EntityType="Model.Caixa" Width="1.5" PointX="6" PointY="60.5" />
+        <EntityTypeShape EntityType="Model.Categoria" Width="1.5" PointX="5.75" PointY="1.25" />
+        <EntityTypeShape EntityType="Model.Cidade" Width="1.5" PointX="3.75" PointY="61.125" />
+        <EntityTypeShape EntityType="Model.Cliente" Width="2" PointX="0.5" PointY="44.375" />
+        <EntityTypeShape EntityType="Model.Cliente_Parcela" Width="1.5" PointX="3" PointY="44" />
+        <EntityTypeShape EntityType="Model.Cliente_Tag" Width="1.5" PointX="3" PointY="48" />
+        <EntityTypeShape EntityType="Model.Cliente_Transportadora" Width="1.5" PointX="3" PointY="76.875" />
+        <EntityTypeShape EntityType="Model.Cliente_Vendedor" Width="2.125" PointX="3" PointY="79.625" />
+        <EntityTypeShape EntityType="Model.CNAE" Width="1.5" PointX="2.75" PointY="1.25" />
+        <EntityTypeShape EntityType="Model.Conta_Corrente" Width="1.5" PointX="3" PointY="64.875" />
+        <EntityTypeShape EntityType="Model.Empresa" Width="1.5" PointX="5.75" PointY="6.25" />
+        <EntityTypeShape EntityType="Model.Familia_Produto" Width="1.5" PointX="9" PointY="37" />
+        <EntityTypeShape EntityType="Model.FormasPagVenda" Width="1.5" PointX="7.75" PointY="1.25" />
+        <EntityTypeShape EntityType="Model.Funcao" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.Funcao_Perfil" Width="1.5" PointX="3" PointY="3.75" />
+        <EntityTypeShape EntityType="Model.ItemPedido" Width="1.5" PointX="5.25" PointY="74.5" />
+        <EntityTypeShape EntityType="Model.ItemPedido_Imposto" Width="1.5" PointX="7.5" PointY="77.625" />
+        <EntityTypeShape EntityType="Model.ItemPedido_InfoAdic" Width="1.5" PointX="7.5" PointY="66.375" />
+        <EntityTypeShape EntityType="Model.ItemPedido_Otica" Width="1.5" PointX="13.5" PointY="50.375" />
+        <EntityTypeShape EntityType="Model.ItemPedido_Produto" Width="1.5" PointX="10.5" PointY="73.375" />
+        <EntityTypeShape EntityType="Model.Motivo_Entrega" Width="1.5" PointX="6" PointY="51.375" />
+        <EntityTypeShape EntityType="Model.Movimento" Width="1.5" PointX="13.5" PointY="39" />
+        <EntityTypeShape EntityType="Model.Pais" Width="1.5" PointX="7.75" PointY="4.25" />
+        <EntityTypeShape EntityType="Model.Parcela" Width="1.5" PointX="0.75" PointY="40" />
+        <EntityTypeShape EntityType="Model.Pedido" Width="1.625" PointX="2.875" PointY="53.75" />
+        <EntityTypeShape EntityType="Model.Pedido_Armacao" Width="1.5" PointX="10.5" PointY="60.875" />
+        <EntityTypeShape EntityType="Model.Pedido_Frete" Width="1.5" PointX="5.25" PointY="93.25" />
+        <EntityTypeShape EntityType="Model.Pedido_InfoAdic" Width="1.5" PointX="5.25" PointY="54.5" />
+        <EntityTypeShape EntityType="Model.Pedido_Lente" Width="1.5" PointX="10.5" PointY="57.25" />
+        <EntityTypeShape EntityType="Model.Pedido_Observacoes" Width="1.5" PointX="5.25" PointY="37.625" />
+        <EntityTypeShape EntityType="Model.Pedido_Otica" Width="1.5" PointX="8.25" PointY="45.75" />
+        <EntityTypeShape EntityType="Model.Pedido_Otica_InfoAdic" Width="1.875" PointX="10.5" PointY="48.5" />
+        <EntityTypeShape EntityType="Model.Pedido_Otica_Parcelas" Width="1.5" PointX="10.5" PointY="44.375" />
+        <EntityTypeShape EntityType="Model.Pedido_Parcelas" Width="1.5" PointX="5.25" PointY="41" />
+        <EntityTypeShape EntityType="Model.Pedido_Total" Width="1.5" PointX="5.25" PointY="87.25" />
+        <EntityTypeShape EntityType="Model.Perfil" Width="1.5" PointX="0.75" PointY="4.25" />
+        <EntityTypeShape EntityType="Model.Produto" Width="1.5" PointX="11.25" PointY="33.5" />
+        <EntityTypeShape EntityType="Model.Produto_Ibpt" Width="1.5" PointX="13.5" PointY="34.875" />
+        <EntityTypeShape EntityType="Model.Produto_Imposto" Width="1.5" PointX="7.75" PointY="7.25" />
+        <EntityTypeShape EntityType="Model.Rota" Width="1.5" PointX="6" PointY="48.5" />
+        <EntityTypeShape EntityType="Model.Tag" Width="1.5" PointX="0.75" PointY="55.25" />
+        <EntityTypeShape EntityType="Model.Tipo_Armacao" Width="1.5" PointX="9.75" PointY="1.25" />
+        <EntityTypeShape EntityType="Model.Tipo_Lente" Width="1.5" PointX="9.75" PointY="4.25" />
+        <EntityTypeShape EntityType="Model.Unidade" Width="1.5" PointX="9.75" PointY="7.25" />
+        <EntityTypeShape EntityType="Model.Usuario" Width="1.5" PointX="3" PointY="8.75" />
+        <EntityTypeShape EntityType="Model.Vendedor" Width="1.5" PointX="6" PointY="45.25" />
+        <EntityTypeShape EntityType="Model.Vendedor_Localidade" Width="1.5" PointX="6" PointY="63.5" />
+        <AssociationConnector Association="Model.FK_pedido_otica_caixa1" />
+        <AssociationConnector Association="Model.fk_rota_cidade1" />
+        <AssociationConnector Association="Model.FK_vendedor_localidade_cidade1" />
+        <AssociationConnector Association="Model.FK_cliente_parcela_cliente" />
+        <AssociationConnector Association="Model.FK_cliente_tag_cliente1" />
+        <AssociationConnector Association="Model.fk_cliente_transportadora_cliente1" />
+        <AssociationConnector Association="Model.fk_cliente_transportadora_transportadora1" />
+        <AssociationConnector Association="Model.FK_cliente_vendedor_cliente1" />
+        <AssociationConnector Association="Model.FK_pedido_cliente1" />
+        <AssociationConnector Association="Model.FK_pedido_otica_cliente_cliente1" />
+        <AssociationConnector Association="Model.FK_pedido_otica_transportadora1" />
+        <AssociationConnector Association="Model.fk_rota_cliente" />
+        <AssociationConnector Association="Model.FK_cliente_parcela_parcela1" />
+        <AssociationConnector Association="Model.FK_cliente_tag_tag1" />
+        <AssociationConnector Association="Model.FK_pedido_infoadic_conta_corrente1" />
+        <AssociationConnector Association="Model.fk_produto_familia1" />
+        <AssociationConnector Association="Model.FK_funcao_perfil_funcao1" />
+        <AssociationConnector Association="Model.FK_funcao_perfil_perfil1" />
+        <AssociationConnector Association="Model.FK_itempedido_imposto_itempedido" />
+        <AssociationConnector Association="Model.FK_itempedido_infoadic_itempedido" />
+        <AssociationConnector Association="Model.fk_itempedido_pedido1" />
+        <AssociationConnector Association="Model.FK_itempedido_produto_itempedido1" />
+        <AssociationConnector Association="Model.FK_itempedido_otica_pedido_otica1" />
+        <AssociationConnector Association="Model.FK_itempedido_otica_produto1" />
+        <AssociationConnector Association="Model.FK_itempedido_produto_produto1" />
+        <AssociationConnector Association="Model.FK_pedido_otica_motivo_entrega1" />
+        <AssociationConnector Association="Model.fk_movimento_produto1" />
+        <AssociationConnector Association="Model.FK_pedido_otica_parcela1" />
+        <AssociationConnector Association="Model.FK_observacoes_pedido_pedido1" />
+        <AssociationConnector Association="Model.FK_pedido_frete_pedido" />
+        <AssociationConnector Association="Model.FK_pedido_infoadic_pedido1" />
+        <AssociationConnector Association="Model.FK_pedido_otica_pedido1" />
+        <AssociationConnector Association="Model.FK_pedido_parcelas_pedido1" />
+        <AssociationConnector Association="Model.FK_pedido_total_pedido" />
+        <AssociationConnector Association="Model.FK_pedido_armacao_pedido_otica" />
+        <AssociationConnector Association="Model.FK_pedido_lentes_pedido_otica" />
+        <AssociationConnector Association="Model.fk_pedido_otica_infoadic1" />
+        <AssociationConnector Association="Model.FK_pedido_otica_parcelas_pedido1" />
+        <AssociationConnector Association="Model.fk_pedido_otica_vendedor" />
+        <AssociationConnector Association="Model.FK_usuario_perfil1" />
+        <AssociationConnector Association="Model.FK_produto_ibpt_produto" />
+        <AssociationConnector Association="Model.FK_cliente_vendedor_vendedor" />
+        <AssociationConnector Association="Model.FK_vendedor_localidade_vendedor" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
