@@ -25,7 +25,7 @@ namespace prjbase
 
         private void btnPesquisaPedidoDe_Click(object sender, EventArgs e)
         {
-            ExecutaPesquisaPedido(txtCodPedidoDe);
+            ExecutaPesquisaPedido(txtCodPedidoDe,txtIdPedidoDe);
         }
 
         private void ExecutaPesquisaPedido(TextBox txtCod, TextBox txtDesc = null)
@@ -35,14 +35,15 @@ namespace prjbase
             {
                 if (pesquisa.Id != null)
                 {
-                    txtCod.Text = pesquisa.Id.ToString();
+                    txtCod.Text = pesquisa.codigo;
+                    txtDesc.Text = pesquisa.Id.ToString();
                 }
             }
         }
 
         private void btnPesquisaPedidoAte_Click(object sender, EventArgs e)
         {
-            ExecutaPesquisaPedido(txtCodPedidoAte);
+            ExecutaPesquisaPedido(txtCodPedidoAte,txtIdPedidoAte);
             txtDtEmissaoDe.Focus();
         }
 
@@ -249,12 +250,12 @@ namespace prjbase
 
             if (!string.IsNullOrEmpty(txtCodPedidoDe.Text))
             {
-                frm.pedidoDe = Convert.ToInt64(txtCodPedidoDe.Text);
+                frm.pedidoDe = Convert.ToInt64(txtIdPedidoDe.Text);
             }
 
             if (!string.IsNullOrEmpty(txtCodPedidoAte.Text))
             {
-                frm.pedidoAte = Convert.ToInt64(txtCodPedidoAte.Text);
+                frm.pedidoAte = Convert.ToInt64(txtIdPedidoAte.Text);
             }
 
             if (!string.IsNullOrEmpty(txtCodClienteDe.Text))
@@ -266,16 +267,19 @@ namespace prjbase
             {
                 frm.clienteAte = Convert.ToInt64(txtIdClienteAte.Text);
             }
-
+            txtDtEmissaoDe.TextMaskFormat = MaskFormat.IncludePromptAndLiterals;
             if (ValidateUtils.isDate(txtDtEmissaoDe.Text))
             {
                 frm.data_emissaoDe = Convert.ToDateTime(txtDtEmissaoDe.Text);
             }
+            txtDtEmissaoDe.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
 
+            txtDtEmissaoAte.TextMaskFormat = MaskFormat.IncludePromptAndLiterals;
             if (ValidateUtils.isDate(txtDtEmissaoAte.Text))
             {
                 frm.data_emissaoAte = Convert.ToDateTime(txtDtEmissaoAte.Text);
             }
+            txtDtEmissaoAte.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
 
             if (ValidateUtils.isDate(txtDtFechamentoDe.Text))
             {
@@ -497,6 +501,16 @@ namespace prjbase
         private void frmRelFiltroPedido_Otica_Activated(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void txtCodPedidoDe_TextChanged(object sender, EventArgs e)
+        {
+            txtIdPedidoDe.Text = string.Empty;
+        }
+
+        private void txtCodPedidoAte_TextChanged(object sender, EventArgs e)
+        {
+            txtIdPedidoAte.Text = string.Empty;
         }
     }
 }

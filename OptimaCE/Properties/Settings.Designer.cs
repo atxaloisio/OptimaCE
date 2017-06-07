@@ -49,11 +49,22 @@ namespace prjbase.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=D:\\Desenv\\SQLCE\\prjbase\\db\\dbIntegracao.sdf;Max Database Size=4091;Pa" +
-            "ssword=pass4admin")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|\\db\\dbIntegracao.sdf;Max Database Size=4091;Password=p" +
+            "ass4admin")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=D:\\Desenv\\SQLCE\\db\\dbIntegracao.sdf;Max Database Size=4091;Password=p" +
+            "ass4admin")]
+        public string ConnectionStringCE {
+            get {
+                return ((string)(this["ConnectionStringCE"]));
             }
         }
     }

@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRelFiltroPedido_Otica));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtIdPedidoAte = new System.Windows.Forms.TextBox();
+            this.txtIdPedidoDe = new System.Windows.Forms.TextBox();
             this.btnPesquisaPedidoAte = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtCodPedidoAte = new System.Windows.Forms.TextBox();
@@ -113,7 +115,7 @@
             // 
             // btnFechar
             // 
-            this.btnFechar.Location = new System.Drawing.Point(4, 2157);
+            this.btnFechar.Location = new System.Drawing.Point(4, 2327);
             // 
             // pnlBotoes
             // 
@@ -140,6 +142,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtIdPedidoAte);
+            this.groupBox1.Controls.Add(this.txtIdPedidoDe);
             this.groupBox1.Controls.Add(this.btnPesquisaPedidoAte);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtCodPedidoAte);
@@ -152,6 +156,26 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Código";
+            // 
+            // txtIdPedidoAte
+            // 
+            this.txtIdPedidoAte.Enabled = false;
+            this.txtIdPedidoAte.Location = new System.Drawing.Point(460, 15);
+            this.txtIdPedidoAte.Name = "txtIdPedidoAte";
+            this.txtIdPedidoAte.Size = new System.Drawing.Size(100, 23);
+            this.txtIdPedidoAte.TabIndex = 43;
+            this.txtIdPedidoAte.TabStop = false;
+            this.txtIdPedidoAte.Visible = false;
+            // 
+            // txtIdPedidoDe
+            // 
+            this.txtIdPedidoDe.Enabled = false;
+            this.txtIdPedidoDe.Location = new System.Drawing.Point(354, 15);
+            this.txtIdPedidoDe.Name = "txtIdPedidoDe";
+            this.txtIdPedidoDe.Size = new System.Drawing.Size(100, 23);
+            this.txtIdPedidoDe.TabIndex = 42;
+            this.txtIdPedidoDe.TabStop = false;
+            this.txtIdPedidoDe.Visible = false;
             // 
             // btnPesquisaPedidoAte
             // 
@@ -184,6 +208,7 @@
             this.txtCodPedidoAte.Name = "txtCodPedidoAte";
             this.txtCodPedidoAte.Size = new System.Drawing.Size(100, 23);
             this.txtCodPedidoAte.TabIndex = 1;
+            this.txtCodPedidoAte.TextChanged += new System.EventHandler(this.txtCodPedidoAte_TextChanged);
             // 
             // btnPesquisaPedidoDe
             // 
@@ -216,6 +241,7 @@
             this.txtCodPedidoDe.Name = "txtCodPedidoDe";
             this.txtCodPedidoDe.Size = new System.Drawing.Size(100, 23);
             this.txtCodPedidoDe.TabIndex = 0;
+            this.txtCodPedidoDe.TextChanged += new System.EventHandler(this.txtCodPedidoDe_TextChanged);
             this.txtCodPedidoDe.Validated += new System.EventHandler(this.txtCodPedidoDe_Validated);
             // 
             // groupBox3
@@ -924,5 +950,7 @@
         private System.Windows.Forms.TextBox txtIdClienteAte;
         private System.Windows.Forms.TextBox txtIdTransportadoraDe;
         private System.Windows.Forms.TextBox txtIdClienteDe;
+        private System.Windows.Forms.TextBox txtIdPedidoAte;
+        private System.Windows.Forms.TextBox txtIdPedidoDe;
     }
 }

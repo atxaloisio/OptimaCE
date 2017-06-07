@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlServerCe;
-using MySql.Data.MySqlClient;
 
 namespace Utils
 {

@@ -32,6 +32,8 @@ namespace prjbase
         private const int COL_USUARIO = 11;
         #endregion
 
+        public string codigo { get; set; }
+
         public frmPesquisaPedido_Otica()
         {
             InitializeComponent();
@@ -39,7 +41,15 @@ namespace prjbase
 
         protected override void setRetorno()
         {
-            base.setRetorno();
+            if (dgvPesquisa.CurrentRow != null)
+            {
+                if (dgvPesquisa[COL_PEDIDO, dgvPesquisa.CurrentRow.Index].Value != null)
+                {
+                    codigo = dgvPesquisa[COL_PEDIDO, dgvPesquisa.CurrentRow.Index].Value.ToString();                    
+                }
+            }
+
+            base.setRetorno();            
         }
 
         public virtual DialogResult ExibeDialogo(string valorProcura)

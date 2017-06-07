@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
-using MySql.Data.MySqlClient;
 using System.Drawing;
 using System.IO;
 using System.Drawing.Imaging;
+using System.Data.SqlServerCe;
 
 namespace Utils
 {
@@ -15,22 +15,26 @@ namespace Utils
     {
         public static Image GetImagem(Int64 Id, string tabela, string campoId)
         {
-            string ConnectionString = ConfigurationManager.ConnectionStrings["prjbase.Properties.Settings.dbintegracaoConnectionString"].ConnectionString;
+            //string ConnectionString = ConfigurationManager.ConnectionStrings["prjbase.Properties.Settings.dbintegracaoConnectionString"].ConnectionString;
+            string ConnectionString = ConfigurationManager.ConnectionStrings["prjbase.Properties.Settings.ConnectionString"].ConnectionString;
             Byte[] ImageByte;
             Image retorno = null;
-            MySqlConnection con = new MySqlConnection(ConnectionString);
+            //MySqlConnection con = new MySqlConnection(ConnectionString);
+            SqlCeConnection con = new SqlCeConnection(ConnectionString);
             try
             {
                 con.Open();
                 string sql = string.Empty;
                 if (!string.IsNullOrEmpty(tabela) & !string.IsNullOrEmpty(campoId))
                 {
-                    sql = "SELECT imagem from " + tabela + " where " + campoId + " = ?Id";
-                    MySqlCommand cmd = new MySqlCommand(sql, con);
-                    cmd.Parameters.AddWithValue("?Id", Id);
-                    MySqlDataReader dr = cmd.ExecuteReader();
-                    dr.Read();
-                    if (dr.HasRows)
+                    sql = "SELECT imagem from " + tabela + " where " + campoId + " = @Id";
+                    //MySqlCommand cmd = new MySqlCommand(sql, con);
+                    SqlCeCommand cmd = new SqlCeCommand(sql, con);
+                    cmd.Parameters.AddWithValue("@Id", Id);
+                    //MySqlDataReader dr = cmd.ExecuteReader();
+                    SqlCeDataReader dr = cmd.ExecuteReader();
+                    bool HasRows = dr.Read();
+                    if (HasRows)
                     {
                         ImageByte = (Byte[])dr["imagem"];
                         if (ImageByte != null)
@@ -71,9 +75,11 @@ namespace Utils
 
         public static void setImagem(Int64 Id, string tabela, string campoId, Image imagem)
         {
-            string ConnectionString = ConfigurationManager.ConnectionStrings["prjbase.Properties.Settings.dbintegracaoConnectionString"].ConnectionString;
+            //string ConnectionString = ConfigurationManager.ConnectionStrings["prjbase.Properties.Settings.dbintegracaoConnectionString"].ConnectionString;
+            string ConnectionString = ConfigurationManager.ConnectionStrings["prjbase.Properties.Settings.ConnectionString"].ConnectionString;
             long? Id_Img = null;
-            MySqlConnection con = new MySqlConnection(ConnectionString);
+            //MySqlConnection con = new MySqlConnection(ConnectionString);
+            SqlCeConnection con = new SqlCeConnection(ConnectionString);
             try
             {
                 if (!string.IsNullOrEmpty(tabela) & !string.IsNullOrEmpty(campoId))
@@ -82,15 +88,16 @@ namespace Utils
 
 
                     con.Open();
-                    string sql = "SELECT Id from " + tabela + " where " + campoId + " = ?Id";
-                    MySqlCommand cmd = new MySqlCommand(sql, con);
-                    cmd.Parameters.AddWithValue("?Id", Id);
+                    string sql = "SELECT Id from " + tabela + " where " + campoId + " = @Id";
+                    //MySqlCommand cmd = new MySqlCommand(sql, con);
+                    SqlCeCommand cmd = new SqlCeCommand(sql, con);
+                    cmd.Parameters.AddWithValue("@Id", Id);
 
-                    MySqlDataReader dr = cmd.ExecuteReader();
-                    dr.Read();
-                    if (dr.HasRows)
+                    SqlCeDataReader dr = cmd.ExecuteReader();
+                    bool HasRows = dr.Read();
+                    if (HasRows)
                     {
-                        Id_Img = dr.GetInt64("Id");
+                        Id_Img = Convert.ToInt64(dr["Id"]);
                     }
                     dr.Close();
                     dr.Dispose();
@@ -99,19 +106,19 @@ namespace Utils
                     sql = string.Empty;
                     if (Id_Img != null)
                     {
-                        sql = @"update " + tabela + " set imagem = ?imagem where Id = ?Id";
-                        MySqlCommand cmdUpdate = new MySqlCommand(sql, con);
-                        cmdUpdate.Parameters.AddWithValue("?imagem", pic_arr);
-                        cmdUpdate.Parameters.AddWithValue("?Id", Id_Img);
+                        sql = @"update " + tabela + " set imagem = @imagem where Id = @Id";
+                        SqlCeCommand cmdUpdate = new SqlCeCommand(sql, con);
+                        cmdUpdate.Parameters.AddWithValue("@imagem", pic_arr);
+                        cmdUpdate.Parameters.AddWithValue("@Id", Id_Img);
                         cmdUpdate.ExecuteNonQuery();
                         cmdUpdate.Dispose();
                     }
                     else
                     {
-                        sql = @"insert into " + tabela + " (" + campoId + ", imagem) values(?campoId,?imagem)";
-                        MySqlCommand cmdUpdate = new MySqlCommand(sql, con);
-                        cmdUpdate.Parameters.AddWithValue("?imagem", pic_arr);
-                        cmdUpdate.Parameters.AddWithValue("?campoId", Id);
+                        sql = @"insert into " + tabela + " (" + campoId + ", imagem) values(@campoId,@imagem)";
+                        SqlCeCommand cmdUpdate = new SqlCeCommand(sql, con);
+                        cmdUpdate.Parameters.AddWithValue("@imagem", pic_arr);
+                        cmdUpdate.Parameters.AddWithValue("@campoId", Id);
                         cmdUpdate.ExecuteNonQuery();
                         cmdUpdate.Dispose();
                     }

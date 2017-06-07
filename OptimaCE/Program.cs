@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Threading;
 using Model;
 using Sync;
+using System.IO;
 
 namespace prjbase
 {    
@@ -20,6 +21,8 @@ namespace prjbase
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            AppDomain.CurrentDomain.SetData("DataDirectory", Directory.GetCurrentDirectory());
 
             frmSplash splash = new frmSplash();
             splash.Show();
