@@ -42,6 +42,12 @@ namespace prjbase
                     txtNomeFantasia.Text = Cliente.nome_fantasia;
                     txtCNPJCPF.Text = Cliente.cnpj_cpf;
                     txtContato.Text = Cliente.contato;
+
+                    if (Cliente.nascimento != null)
+                    {
+                        txtDtNascimento.Text = Cliente.nascimento.Value.ToShortDateString();
+                    }
+                    
                     txtDDD.Text = Cliente.telefone1_ddd;
                     txtTelefone.Text = Cliente.telefone1_numero;
                     chkBloqueado.Checked = Cliente.bloqueado == "S";
@@ -206,6 +212,12 @@ namespace prjbase
             Cliente.nome_fantasia = txtNomeFantasia.Text;
             Cliente.cnpj_cpf = txtCNPJCPF.Text;
             Cliente.contato = txtContato.Text;
+
+            if (string.IsNullOrEmpty(txtDtNascimento.Text))
+            {
+                Cliente.nascimento = Convert.ToDateTime(txtDtNascimento.Text);
+            }
+
             Cliente.telefone1_ddd = txtDDD.Text;
             Cliente.telefone1_numero = txtTelefone.Text;
             Cliente.bloqueado = chkBloqueado.Checked ? "S" : "N";
@@ -349,14 +361,7 @@ namespace prjbase
         {
             string strCPF, strCNPJ = string.Empty;
             bool exibeMsg = false;
-
-            //bool layoutLaboratorio = Convert.ToBoolean(Parametro.GetParametro("layoutLaboratorio"));
-
-            //if (layoutLaboratorio)
-            //{
-
-
-            //}
+            
             if (!string.IsNullOrEmpty(txtCNPJCPF.Text))
             {
                 txtCNPJCPF.Text = txtCNPJCPF.Text.Trim().Replace(".", "").Replace("-", "").Replace("/", "");
@@ -373,7 +378,7 @@ namespace prjbase
                         txtCNPJCPF.Text = strCPF;
                     }
                 }
-                else if (txtCNPJCPF.Text.Where(c => char.IsNumber(c)).Count() == 15)
+                else if (txtCNPJCPF.Text.Where(c => char.IsNumber(c)).Count() >= 14)
                 {
                     strCNPJ = Convert.ToInt64(txtCNPJCPF.Text).ToString(@"00\.000\.000\/0000\-00");
                     if (!ValidaCNPJ.IsCnpj(strCNPJ))
@@ -584,6 +589,21 @@ namespace prjbase
             if (dlgCaminhoImagem.ShowDialog() == DialogResult.OK)
             {
                 imgFotoCliente.Image = Image.FromFile(@dlgCaminhoImagem.FileName);
+            }
+        }
+
+        private void txtDtNascimento_Validating(object sender, CancelEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(((MaskedTextBox)sender).Text))
+            {
+                ((MaskedTextBox)sender).TextMaskFormat = MaskFormat.IncludePromptAndLiterals;
+                if (!ValidateUtils.isDate(((MaskedTextBox)sender).Text))
+                {
+                    MessageBox.Show("Data inválida.", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ((MaskedTextBox)sender).Text = string.Empty;
+                    e.Cancel = true;
+                }
+                        ((MaskedTextBox)sender).TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
             }
         }
     }

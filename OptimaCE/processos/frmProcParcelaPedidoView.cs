@@ -18,8 +18,7 @@ namespace prjbase
 {
     public partial class frmProcParcelaPedidoView : prjbase.frmBaseCadEdit
     {
-        private ClienteBLL clienteBLL;
-        private ProdutoBLL produtoBLL;
+        private ClienteBLL clienteBLL;        
         private ParcelaBLL parcelaBLL;
         private Motivo_EntregaBLL motivo_EntregaBLL;
         private Pedido_OticaBLL pedido_OticaBLL;
@@ -37,8 +36,10 @@ namespace prjbase
         private const int COL_PERCENTUAL = 5;        
         private const int COL_PAGO = 6;        
         private const int COL_DATAPAGAMENTO = 7;
-        private const int COL_EDITADO = 8;
-        private const int COL_NRDIAS = 9;
+        private const int COL_FORMAPAGAMENTO = 8;
+        private const int COL_USUARIOPAGAMENTO = 9;
+        private const int COL_EDITADO = 10;
+        private const int COL_NRDIAS = 11;
 
         #endregion
         public frmProcParcelaPedidoView()
@@ -291,9 +292,17 @@ namespace prjbase
             txtValor.Text = dgvParcelas[COL_VALOR, row].Value.ToString();
             txtPercentual.Text = Convert.ToDecimal(dgvParcelas[COL_PERCENTUAL, row].Value.ToString()).ToString("N2");
             chkPago.Checked = Convert.ToBoolean(dgvParcelas[COL_PAGO, row].Value);
+
+            txtDtPagamento.Text = string.Empty;
             if (dgvParcelas[COL_DATAPAGAMENTO, row].Value != null)
             {
                 txtDtPagamento.Text = dgvParcelas[COL_DATAPAGAMENTO, row].Value.ToString();
+            }
+
+            cbFormaPagamento.SelectedIndex = -1;
+            if (dgvParcelas[COL_FORMAPAGAMENTO, row].Value != null)
+            {
+                cbFormaPagamento.Text = dgvParcelas[COL_FORMAPAGAMENTO, row].Value.ToString();
             }
             
         }
@@ -304,17 +313,22 @@ namespace prjbase
             {
                 int row = dgvParcelas.SelectedRows[0].Index;
                 long IdParcela = Convert.ToInt64(dgvParcelas[COL_ID, row].Value);
-                ImprimirRegistro(IdParcela);
+                bool pago = Convert.ToBoolean(dgvParcelas[COL_PAGO, row].Value);
+                if (pago)
+                {
+                    ImprimirRegistro(IdParcela);
+                }
+                
             }
             
         }
 
         protected override void ImprimirRegistro(Int64? id)
         {
-            frmRelPedido_Otica relatorio = new frmRelPedido_Otica();
+            frmRelReciboParcela relatorio = new frmRelReciboParcela();
             try
             {
-                relatorio.rvRelatorios.LocalReport.ReportEmbeddedResource = "prjbase.relatorios.relPedido_Otica.rdlc";
+                relatorio.rvRelatorios.LocalReport.ReportEmbeddedResource = "prjbase.relatorios.relReciboParcela.rdlc";
                 relatorio.ExibeDialogo(this, id);
             }
             catch (Exception ex)
@@ -390,9 +404,10 @@ namespace prjbase
                 p.quantidade_dias = item.NrDias;
                 p.percentual = item.Percentual;
                 p.valor = item.Valor;
-                p.usuario_pagamento = Program.usuario_logado.nome;
+                p.usuario_pagamento = item.Usuario;
                 p.data_vencimento = item.DtVencimento;
                 p.data_pagamento = item.DtPagamento;
+                p.forma_pagamento = item.FormaPagamento;
                 ParcelasList.Add(p);                           
             }
             return ParcelasList;
@@ -404,7 +419,18 @@ namespace prjbase
             SetupCaixa();
             SetupTransportadora();
             SetupVendedor();
-            SetupMotivoEntrega();            
+            SetupMotivoEntrega();
+            setupFormaPagamento();       
+        }
+
+        private void setupFormaPagamento()
+        {
+            TipoPagamento tp = new TipoPagamento();
+
+            cbFormaPagamento.DataSource = Enumerados.getListEnum(tp);
+            cbFormaPagamento.ValueMember = "chave";
+            cbFormaPagamento.DisplayMember = "descricao";
+            cbFormaPagamento.SelectedIndex = -1;
         }
 
         private void formataGridParcelas()
@@ -480,6 +506,18 @@ namespace prjbase
             dgvParcelas.Columns[COL_DATAPAGAMENTO].ValueType = typeof(DateTime);
             dgvParcelas.Columns[COL_DATAPAGAMENTO].SortMode = DataGridViewColumnSortMode.Programmatic;
             dgvParcelas.Columns[COL_DATAPAGAMENTO].HeaderText = "Dt. Pagamento";
+
+            dgvParcelas.Columns[COL_FORMAPAGAMENTO].Width = 200;
+            dgvParcelas.Columns[COL_FORMAPAGAMENTO].ValueType = typeof(String);
+            dgvParcelas.Columns[COL_FORMAPAGAMENTO].SortMode = DataGridViewColumnSortMode.Programmatic;
+            dgvParcelas.Columns[COL_FORMAPAGAMENTO].HeaderText = "Forma de Pagamento";
+            dgvParcelas.Columns[COL_FORMAPAGAMENTO].Visible = true;
+
+            dgvParcelas.Columns[COL_USUARIOPAGAMENTO].Width = 200;
+            dgvParcelas.Columns[COL_USUARIOPAGAMENTO].ValueType = typeof(String);
+            dgvParcelas.Columns[COL_USUARIOPAGAMENTO].SortMode = DataGridViewColumnSortMode.Programmatic;
+            dgvParcelas.Columns[COL_USUARIOPAGAMENTO].HeaderText = "Usuário";
+            dgvParcelas.Columns[COL_USUARIOPAGAMENTO].Visible = true;
 
             dgvParcelas.Columns[COL_EDITADO].Width = 60;
             dgvParcelas.Columns[COL_EDITADO].ValueType = typeof(Boolean);
@@ -1020,6 +1058,17 @@ namespace prjbase
                 {
                     p.DtPagamento = Convert.ToDateTime(item.Cells[COL_DATAPAGAMENTO].Value);
                 }
+                
+                if (item.Cells[COL_FORMAPAGAMENTO].Value != null)
+                {
+                    p.FormaPagamento = item.Cells[COL_FORMAPAGAMENTO].Value.ToString();
+                }
+                
+                if (item.Cells[COL_USUARIOPAGAMENTO].Value != null)
+                {
+                    p.Usuario = item.Cells[COL_USUARIOPAGAMENTO].Value.ToString();
+                }
+                
 
                 ParcelaList.Add(p);               
             }
@@ -1111,6 +1160,33 @@ namespace prjbase
                     e.Cancel = true;
                 }
                         ((MaskedTextBox)sender).TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+            }
+        }
+
+        private void cbFormaPagamento_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (dgvParcelas.SelectedRows.Count > 0)
+            {
+                int row = dgvParcelas.SelectedRows[0].Index;
+                List<ParcelaView> ParcelasList = LoadFromGridParcela();
+                for (int i = 0; i < ParcelasList.Count(); i++)
+                {
+                    ParcelaView p = ParcelasList[i];
+
+                    if (i == row)
+                    {
+                        p.FormaPagamento = cbFormaPagamento.Text;
+                        p.Usuario = Program.usuario_logado.nome;                        
+                        p.Editado = true;
+                    }
+
+                }
+
+                dgvParcelas.DataSource = ParcelasList;
+
+                dgvParcelas.CurrentCell = dgvParcelas.Rows[row].Cells[COL_NUMEROPARCELA];
+                dgvParcelas.Rows[row].Selected = true;
+
             }
         }
     }

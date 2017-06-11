@@ -86,6 +86,7 @@
           <Property Name="alteracao" Type="datetime" />
           <Property Name="usuario_alteracao" Type="nvarchar" MaxLength="40" />
           <Property Name="sincronizar" Type="nchar" MaxLength="1" />
+          <Property Name="nascimento" Type="datetime" />
         </EntityType>
         <EntityType Name="cliente_parcela">
           <Key>
@@ -1930,6 +1931,7 @@
           <Property Name="cep" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="codigo_pais" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
           <Property Name="contato" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="nascimento" Type="DateTime" Precision="3" />
           <Property Name="telefone1_ddd" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="telefone1_numero" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="telefone2_ddd" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
@@ -3422,6 +3424,7 @@
           <EntitySetMapping Name="Clientes1">
             <EntityTypeMapping TypeName="Model.Cliente">
               <MappingFragment StoreEntitySet="cliente">
+                <ScalarProperty Name="nascimento" ColumnName="nascimento" />
                 <ScalarProperty Name="sincronizar" ColumnName="sincronizar" />
                 <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
                 <ScalarProperty Name="alteracao" ColumnName="alteracao" />

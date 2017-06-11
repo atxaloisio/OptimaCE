@@ -11,6 +11,8 @@ using System.Configuration;
 using Model;
 using BLL;
 using Utils;
+using System.IO;
+using SoftwareLocker;
 
 namespace prjbase
 {
@@ -205,7 +207,8 @@ namespace prjbase
 
             foreach (ToolStripMenuItem item in menuSistema.Items)
             {
-                foreach (ToolStripMenuItem child in item.DropDownItems)
+                
+                foreach (ToolStripMenuItem child in item.DropDownItems.OfType<ToolStripMenuItem>())
                 {
                     if (child.DropDownItems.Count > 0)
                     {
@@ -666,6 +669,37 @@ namespace prjbase
             var frm = new frmSobre();
             frm.ShowDialog();
             frm.Dispose();
+        }
+
+        private void mnuTopicosAjuda_Click(object sender, EventArgs e)
+        {
+            string fbPath = Application.StartupPath;
+            string fname = "Optima.chm";
+            string filename = fbPath + @"\help\" + fname;
+            FileInfo fi = new FileInfo(filename);
+            if (fi.Exists)
+            {
+                Help.ShowHelp(this, filename, HelpNavigator.Find, "");
+            }
+        }
+
+        private void mnuRegistro_Click(object sender, EventArgs e)
+        {
+            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+            string path = appDataPath + @"\Optima\";
+            
+            TrialMaker t = new TrialMaker("Optima", Application.StartupPath + "\\RegFile.reg",
+                path + "\\Optima.dbf",
+                "Fixo: +55 (21)3226-2645\nCelular: +55 (21)99205-6591",
+                5, 10, "745", true);
+
+            byte[] MyOwnKey = { 97, 250, 1, 5, 84, 21, 7, 63,
+            4, 54, 87, 56, 123, 10, 3, 62,
+            7, 9, 20, 36, 37, 21, 101, 57};
+            t.TripleDESKey = MyOwnKey;
+            
+            TrialMaker.RunTypes RT = t.ShowDialog();
         }
     }
 }

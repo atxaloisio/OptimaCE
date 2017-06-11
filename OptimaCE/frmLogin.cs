@@ -17,9 +17,11 @@ namespace prjbase
     public partial class frmLogin : Form
     {
         UsuarioBLL usuarioBLL;
-        public frmLogin()
+        string _MensagemTrial;
+        public frmLogin(string MensagemTrial = "")
         {
             InitializeComponent();
+            _MensagemTrial = MensagemTrial;
         }
 
         private void frmLogin_Load(object sender, EventArgs e)
@@ -32,6 +34,13 @@ namespace prjbase
 
             pictureBox1.Parent = this;
             pictureBox1.BackColor = Color.Transparent;
+
+            lblAvaliacao.Parent = this;
+            lblAvaliacao.BackColor = Color.Transparent;
+            if (!string.IsNullOrEmpty(_MensagemTrial))
+            {
+                lblAvaliacao.Visible = true;
+            }
         }
 
         private void btnEntrar_Click(object sender, EventArgs e)

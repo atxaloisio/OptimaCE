@@ -7,6 +7,7 @@ using System.Threading;
 using Model;
 using Sync;
 using System.IO;
+using SoftwareLocker;
 
 namespace prjbase
 {    
@@ -33,7 +34,7 @@ namespace prjbase
             splash.setprogresso(100);
             Thread.Sleep(500);
             Application.DoEvents();
-            
+
             //splash.setMensagem("Sincronizando informações com a nuvem.");
             //Application.DoEvents();
 
@@ -196,21 +197,62 @@ namespace prjbase
             //Thread.Sleep(50);
             //Application.DoEvents();
 
+            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+
+            string path = appDataPath + @"\Optima\";
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+
+
+            TrialMaker t = new TrialMaker("Optima", Application.StartupPath + "\\RegFile.reg",
+                path + "\\Optima.dbf",
+                "Fixo: +55 (21)3226-2645\nCelular: +55 (21)99205-6591",
+                5, 10, "745", false);
+
+            byte[] MyOwnKey = { 97, 250, 1, 5, 84, 21, 7, 63,
+            4, 54, 87, 56, 123, 10, 3, 62,
+            7, 9, 20, 36, 37, 21, 101, 57};
+            t.TripleDESKey = MyOwnKey;
+
             splash.Dispose();
 
-            frmLogin login = new frmLogin();
+            TrialMaker.RunTypes RT = t.ShowDialog();
+            bool is_trial;
+            int NrDiasTrial = t.NrDiasFimAvalicao();
 
 
-            if (login.ShowDialog() == DialogResult.OK)
+            if (RT != TrialMaker.RunTypes.Expired)
             {
-                Application.Run(new frmPrincipal());
+                string MsgLogin = string.Empty;
+                if (RT == TrialMaker.RunTypes.Full)
+                    is_trial = false;
+                else
+                    is_trial = true;
+
+                if (is_trial)
+                {
+                    MsgLogin = string.Format("Versão de avaliação. Tempo restante: {0} dia(s).", NrDiasTrial);
+                }
+
+                frmLogin login = new frmLogin(MsgLogin);
+
+
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    Application.Run(new frmPrincipal());
+                }
+                else
+                {
+                    Application.Exit();
+                }
             }
             else
             {
                 Application.Exit();
             }
-
-            
         }
     }
 }

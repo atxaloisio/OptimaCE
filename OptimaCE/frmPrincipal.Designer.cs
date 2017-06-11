@@ -63,8 +63,12 @@
             this.mnuPermissoesAcesso = new System.Windows.Forms.ToolStripMenuItem();
             this.janelasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuJanFecharTodos = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAjuda = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuTopicosAjuda = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuSobre = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuRegistro = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSistema.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,12 +81,12 @@
             this.relatoriosToolStripMenuItem,
             this.utilitáriosToolStripMenuItem,
             this.janelasToolStripMenuItem,
-            this.mnuSobre,
+            this.mnuAjuda,
             this.sairToolStripMenuItem});
             this.menuSistema.Location = new System.Drawing.Point(0, 0);
             this.menuSistema.MdiWindowListItem = this.janelasToolStripMenuItem;
             this.menuSistema.Name = "menuSistema";
-            this.menuSistema.Size = new System.Drawing.Size(551, 24);
+            this.menuSistema.Size = new System.Drawing.Size(723, 24);
             this.menuSistema.TabIndex = 1;
             this.menuSistema.Text = "menuStrip1";
             // 
@@ -369,20 +373,43 @@
             this.janelasToolStripMenuItem.Name = "janelasToolStripMenuItem";
             this.janelasToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.janelasToolStripMenuItem.Tag = "5000";
-            this.janelasToolStripMenuItem.Text = "Janelas";
+            this.janelasToolStripMenuItem.Text = "&Janelas";
             // 
             // mnuJanFecharTodos
             // 
             this.mnuJanFecharTodos.Name = "mnuJanFecharTodos";
-            this.mnuJanFecharTodos.Size = new System.Drawing.Size(152, 22);
+            this.mnuJanFecharTodos.Size = new System.Drawing.Size(144, 22);
             this.mnuJanFecharTodos.Text = "Fechar Todos";
             this.mnuJanFecharTodos.Click += new System.EventHandler(this.mnuJanFecharTodos_Click);
+            // 
+            // mnuAjuda
+            // 
+            this.mnuAjuda.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuTopicosAjuda,
+            this.mnuRegistro,
+            this.toolStripMenuItem2,
+            this.mnuSobre});
+            this.mnuAjuda.Name = "mnuAjuda";
+            this.mnuAjuda.Size = new System.Drawing.Size(50, 20);
+            this.mnuAjuda.Tag = "6000";
+            this.mnuAjuda.Text = "&Ajuda";
+            // 
+            // mnuTopicosAjuda
+            // 
+            this.mnuTopicosAjuda.Name = "mnuTopicosAjuda";
+            this.mnuTopicosAjuda.Size = new System.Drawing.Size(176, 22);
+            this.mnuTopicosAjuda.Text = "Tópicos da Ajuda ";
+            this.mnuTopicosAjuda.Click += new System.EventHandler(this.mnuTopicosAjuda_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(173, 6);
             // 
             // mnuSobre
             // 
             this.mnuSobre.Name = "mnuSobre";
-            this.mnuSobre.Size = new System.Drawing.Size(49, 20);
-            this.mnuSobre.Tag = "6000";
+            this.mnuSobre.Size = new System.Drawing.Size(176, 22);
             this.mnuSobre.Text = "Sobre";
             this.mnuSobre.Click += new System.EventHandler(this.mnuSobre_Click);
             // 
@@ -393,12 +420,19 @@
             this.sairToolStripMenuItem.Text = "Sair";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
             // 
+            // mnuRegistro
+            // 
+            this.mnuRegistro.Name = "mnuRegistro";
+            this.mnuRegistro.Size = new System.Drawing.Size(176, 22);
+            this.mnuRegistro.Text = "Registro de Licença";
+            this.mnuRegistro.Click += new System.EventHandler(this.mnuRegistro_Click);
+            // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(551, 261);
+            this.ClientSize = new System.Drawing.Size(723, 413);
             this.Controls.Add(this.menuSistema);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
@@ -431,7 +465,7 @@
         private System.Windows.Forms.ToolStripMenuItem parametrosDeSistemasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuCadClientes;
         private System.Windows.Forms.ToolStripMenuItem janelasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mnuSobre;
+        private System.Windows.Forms.ToolStripMenuItem mnuAjuda;
         private System.Windows.Forms.ToolStripMenuItem mnuJanFecharTodos;
         private System.Windows.Forms.ToolStripMenuItem mnuProdutos;
         private System.Windows.Forms.ToolStripMenuItem controleAcessoToolStripMenuItem;
@@ -452,5 +486,9 @@
         private System.Windows.Forms.ToolStripMenuItem mnuRelPedidoVendas;
         private System.Windows.Forms.ToolStripMenuItem mnuFornecedores;
         private System.Windows.Forms.ToolStripMenuItem mnuTransportadoras;
+        private System.Windows.Forms.ToolStripMenuItem mnuTopicosAjuda;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem mnuSobre;
+        private System.Windows.Forms.ToolStripMenuItem mnuRegistro;
     }
 }

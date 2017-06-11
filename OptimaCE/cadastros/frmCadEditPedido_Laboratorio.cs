@@ -779,6 +779,7 @@ namespace prjbase
                     if (dgvItemPedido.Rows.Count > 0)
                     {
                         dgvItemPedido.Rows.RemoveAt(dgvItemPedido.CurrentRow.Index);
+                        AtualizaTotal();
                     }
                 }
             }
@@ -836,6 +837,7 @@ namespace prjbase
             if (dgvItemPedido.Rows.Count > 0)
             {
                 dgvItemPedido.Rows.RemoveAt(dgvItemPedido.CurrentRow.Index);
+                AtualizaTotal();
             }
 
         }
@@ -1090,6 +1092,10 @@ namespace prjbase
             {
                 ExecutaPesquisaProduto(sender, e);
             }
+            else
+            {
+                dgvItemPedido.Select();
+            }
         }
 
         private void ExecutaPesquisaProduto(object sender, DataGridViewCellEventArgs e)
@@ -1140,8 +1146,7 @@ namespace prjbase
         private void setupCol_Unidade()
         {
             UnidadeBLL unidadeBLL = new UnidadeBLL();
-            List<Unidade> unidadeList = unidadeBLL.getUnidade();
-            ((DataGridViewComboBoxColumn)dgvItemPedido.Columns[col_Unidade]).DataSource = unidadeList;
+            ((DataGridViewComboBoxColumn)dgvItemPedido.Columns[col_Unidade]).DataSource = unidadeBLL.getUnidade();
             ((DataGridViewComboBoxColumn)dgvItemPedido.Columns[col_Unidade]).DisplayMember = "codigo";
             ((DataGridViewComboBoxColumn)dgvItemPedido.Columns[col_Unidade]).ValueMember = "codigo";
         }
@@ -1522,7 +1527,8 @@ namespace prjbase
 
                                     if (dgvItemPedido.Rows.Count > 0)
                                     {
-                                        dgvItemPedido.CurrentCell = dgvItemPedido.Rows[e.RowIndex].Cells[col_Quantidade];
+                                        if (e.RowIndex >0)
+                                            dgvItemPedido.CurrentCell = dgvItemPedido.Rows[e.RowIndex].Cells[col_Quantidade];
                                     }
                                 }
                             }
@@ -2128,6 +2134,11 @@ namespace prjbase
         }
 
         private void dgvItemPedido_RowValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            AtualizaTotal();
+        }
+
+        private void AtualizaTotal()
         {
             decimal Valor_Total = 0;
             for (int i = 0; i < dgvItemPedido.RowCount; i++)

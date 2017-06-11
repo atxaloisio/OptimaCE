@@ -18,7 +18,9 @@ namespace Model
         public decimal? Percentual { get; set; }
         public bool Pago { get; set; }
         public DateTime? DtPagamento { get; set; }
+        public string FormaPagamento { get; set; }
+        public string Usuario { get; set; }
         public bool Editado { get; set; }
-        public int? NrDias { get; set; }
+        public int? NrDias { get; set; }        
     }
 }

@@ -2018,5 +2018,19 @@ namespace prjbase
                 e.Handled = true;
             }
         }
+
+        private void AtualizaTotal()
+        {
+            decimal Valor_Total = 0;
+            for (int i = 0; i < dgvItemPedido.RowCount; i++)
+            {
+                if (dgvItemPedido[col_VlrTotal, i].Value != null)
+                {
+                    Valor_Total += Convert.ToDecimal(dgvItemPedido[col_VlrTotal, i].Value);
+                }
+            }
+
+            txtValorTotal.Text = Valor_Total.ToString("N2");
+        }
     }
 }

@@ -69,6 +69,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvParcelas = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cbFormaPagamento = new System.Windows.Forms.ComboBox();
             this.txtNrDias = new System.Windows.Forms.TextBox();
             this.txtIdPedido = new System.Windows.Forms.TextBox();
             this.txtIdParcela = new System.Windows.Forms.TextBox();
@@ -103,6 +105,7 @@
             this.btnIncluir.Image = global::prjbase.Properties.Resources.Imprimir;
             this.btnIncluir.Location = new System.Drawing.Point(3, 39);
             this.btnIncluir.Text = "&Recibo";
+            this.btnIncluir.Visible = true;
             // 
             // pnlBotoes
             // 
@@ -624,6 +627,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label9);
+            this.panel2.Controls.Add(this.cbFormaPagamento);
             this.panel2.Controls.Add(this.txtNrDias);
             this.panel2.Controls.Add(this.txtIdPedido);
             this.panel2.Controls.Add(this.txtIdParcela);
@@ -644,6 +649,28 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(318, 192);
             this.panel2.TabIndex = 1;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(4, 165);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(144, 16);
+            this.label9.TabIndex = 73;
+            this.label9.Text = "Forma de Pagamento";
+            // 
+            // cbFormaPagamento
+            // 
+            this.cbFormaPagamento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFormaPagamento.FormattingEnabled = true;
+            this.epValidaDados.SetFraseErro(this.cbFormaPagamento, "Transportadora obrigatório");
+            this.epValidaDados.SetIndiceCombo(this.cbFormaPagamento, -1);
+            this.cbFormaPagamento.Location = new System.Drawing.Point(150, 161);
+            this.cbFormaPagamento.Name = "cbFormaPagamento";
+            this.epValidaDados.SetObrigatorio(this.cbFormaPagamento, false);
+            this.cbFormaPagamento.Size = new System.Drawing.Size(152, 24);
+            this.cbFormaPagamento.TabIndex = 72;
+            this.cbFormaPagamento.SelectionChangeCommitted += new System.EventHandler(this.cbFormaPagamento_SelectionChangeCommitted);
             // 
             // txtNrDias
             // 
@@ -911,5 +938,7 @@
         private System.Windows.Forms.TextBox txtNrDias;
         private System.Windows.Forms.TextBox txtIdPedido;
         private System.Windows.Forms.Label lblPedidoCancelado;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cbFormaPagamento;
     }
 }

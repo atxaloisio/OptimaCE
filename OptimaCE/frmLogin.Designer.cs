@@ -36,6 +36,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnEntrar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.lblAvaliacao = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -125,6 +126,17 @@
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // lblAvaliacao
+            // 
+            this.lblAvaliacao.AutoSize = true;
+            this.lblAvaliacao.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblAvaliacao.Location = new System.Drawing.Point(184, 10);
+            this.lblAvaliacao.Name = "lblAvaliacao";
+            this.lblAvaliacao.Size = new System.Drawing.Size(309, 16);
+            this.lblAvaliacao.TabIndex = 5;
+            this.lblAvaliacao.Text = "Versão de avaliação. Tempo restante: 30 dias ";
+            this.lblAvaliacao.Visible = false;
+            // 
             // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -132,6 +144,7 @@
             this.BackgroundImage = global::prjbase.Properties.Resources.fundo;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(525, 132);
+            this.Controls.Add(this.lblAvaliacao);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnEntrar);
             this.Controls.Add(this.pictureBox1);
@@ -149,6 +162,7 @@
             this.MinimizeBox = false;
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Optima - Sistema de Gestão para Laboratórios e Óticas";
             this.Load += new System.EventHandler(this.frmLogin_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frmLogin_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -166,5 +180,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.Button btnEntrar;
         public System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Label lblAvaliacao;
     }
 }

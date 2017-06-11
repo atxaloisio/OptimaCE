@@ -76,6 +76,18 @@ namespace Model
         }
     }
 
+    public enum TipoPagamento
+    {
+        [StringValue("Dinheiro")]
+        dinheiro = 1,
+        [StringValue("Cartão")]
+        cartao = 2,
+        [StringValue("Cheque")]
+        cheque = 3,
+        [StringValue("Boleto Bancário")]
+        boleto = 4
+    }
+
     public enum StatusPedido
     {
         [StringValue("Gravado")]
