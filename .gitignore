@@ -239,3 +239,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/DAL/DALEntitiesCE_old.rar
+/OptimaCE/cadastros/*.bak
+/db/dboff.sdf
