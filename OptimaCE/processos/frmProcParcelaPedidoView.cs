@@ -249,7 +249,10 @@ namespace prjbase
                             Pedido_Otica_InfoAdic infoadic = pedido_otica.pedido_otica_infoadic.FirstOrDefault();
                             txtIdPedInfoadic.Text = infoadic.Id.ToString();
                             txtNomeMedico.Text = infoadic.nome_medico;
-                            txtCRM.Text = infoadic.crm_medico.ToString();
+                            if (infoadic.crm_medico != null)
+                            {
+                                txtCRM.Text = infoadic.crm_medico.ToString();
+                            }
                             txtLaboratorio.Text = infoadic.laboratorio;
                         }                        
                     }

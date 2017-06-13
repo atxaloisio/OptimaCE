@@ -527,6 +527,12 @@
     <Compile Include="relatorios\frmRelReciboParcela.Designer.cs">
       <DependentUpon>frmRelReciboParcela.cs</DependentUpon>
     </Compile>
+    <Compile Include="relatorios\frmRelReciboVenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="relatorios\frmRelReciboVenda.Designer.cs">
+      <DependentUpon>frmRelReciboVenda.cs</DependentUpon>
+    </Compile>
     <Compile Include="relatorios\frmRelRota.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -740,6 +746,9 @@
     <EmbeddedResource Include="relatorios\frmRelReciboParcela.resx">
       <DependentUpon>frmRelReciboParcela.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="relatorios\frmRelReciboVenda.resx">
+      <DependentUpon>frmRelReciboVenda.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="relatorios\frmRelRota.resx">
       <DependentUpon>frmRelRota.cs</DependentUpon>
     </EmbeddedResource>
@@ -750,6 +759,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="relatorios\relReciboParcela.rdlc" />
+    <EmbeddedResource Include="relatorios\relReciboVenda.rdlc" />
     <EmbeddedResource Include="relatorios\relRota.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

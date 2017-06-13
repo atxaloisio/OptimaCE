@@ -37,8 +37,10 @@ namespace prjbase
 
             lblAvaliacao.Parent = this;
             lblAvaliacao.BackColor = Color.Transparent;
+            lblAvaliacao.Text = string.Empty;
             if (!string.IsNullOrEmpty(_MensagemTrial))
             {
+                lblAvaliacao.Text = _MensagemTrial;
                 lblAvaliacao.Visible = true;
             }
         }

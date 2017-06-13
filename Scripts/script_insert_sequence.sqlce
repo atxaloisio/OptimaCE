@@ -1,0 +1,31 @@
+﻿-- Script Date: 13/06/2017 02:03  - ErikEJ.SqlCeScripting version 3.5.2.64
+INSERT INTO [sequence_data]
+           ([sequence_name]
+           ,[sequence_increment]
+           ,[sequence_min_value]
+           ,[sequence_max_value]
+           ,[sequence_cur_value]
+           ,[sequence_cycle])
+     VALUES
+           ('sq_recibo_venda_sequence'
+           ,1
+           ,1
+           ,9223372036854775807
+           ,1
+           ,1);
+GO
+INSERT INTO [sequence_data]
+           ([sequence_name]
+           ,[sequence_increment]
+           ,[sequence_min_value]
+           ,[sequence_max_value]
+           ,[sequence_cur_value]
+           ,[sequence_cycle])
+     VALUES
+           ('sq_recibo_parcela_sequence'
+           ,1
+           ,1
+           ,9223372036854775807
+           ,1
+           ,1);
+GO

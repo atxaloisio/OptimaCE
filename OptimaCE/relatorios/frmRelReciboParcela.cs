@@ -10,6 +10,8 @@ using System.Text;
 using System.Windows.Forms;
 using Microsoft.Reporting.WinForms;
 using Utils;
+using System.Configuration;
+using System.Data.SqlServerCe;
 
 namespace prjbase
 {
@@ -26,35 +28,83 @@ namespace prjbase
             rvRelatorios.LocalReport.DataSources.Clear();
             rvRelatorios.Reset();
             rvRelatorios.LocalReport.ReportEmbeddedResource = "prjbase.relatorios.relReciboParcela.rdlc";
-            
-            dbintegracaoDataSetTableAdapters.qryReciboParcelaTableAdapter Rota = new dbintegracaoDataSetTableAdapters.qryReciboParcelaTableAdapter();
-            dbintegracaoDataSetTableAdapters.empresa_logoTableAdapter Empresa_Logo = new dbintegracaoDataSetTableAdapters.empresa_logoTableAdapter();
 
-            DataTable dt = new DataTable();
-            DataTable dtl = new DataTable();
+            string ConnectionString = ConfigurationManager.ConnectionStrings["prjbase.Properties.Settings.ConnectionString"].ConnectionString;
+            SqlCeConnection con = new SqlCeConnection(ConnectionString);
+            SqlCeDataAdapter sda = null;
 
-            //dt = prod.GetData(Convert.ToInt64(Id));
-            dt = Rota.GetData(Convert.ToInt64(Id));
-            dtl = Empresa_Logo.GetData();
+            try
+            {
+                con.Open();
+                StringBuilder sb = new StringBuilder();
+                sb.Append("select");
+                sb.Append("  pop.Id,");
+                sb.Append("  'Recebemos de ' + ");
+                sb.Append("  c.razao_social + ");
+                sb.Append("  ' a importância de ' +");
+                sb.Append("  'R$ ' + ");
+                sb.Append("  replace(CONVERT(nvarchar, pop.valor,2),'.',',')+ ");
+                sb.Append("  ' referente a parcela nº '+ ");
+                sb.Append("  convert(nvarchar,pop.numero_parcela) + ");
+                sb.Append("  ' do pedido de vendas nº ' + ");
+                sb.Append("  convert(nvarchar, po.codigo,0) + ");
+                sb.Append("  ', com vencimento em ' + ");
+                sb.Append("  pop.data_vencimento  as recibo,  ");
+                sb.Append("  pop.forma_pagamento,");
+                sb.Append("  pop.valor ");
+                sb.Append("from ");
+                sb.Append("  pedido_otica_parcelas pop ");
+                sb.Append("  inner join pedido_otica po ON po.Id = pop.Id_pedido_otica");
+                sb.Append("  inner join cliente c ON c.Id = po.Id_cliente ");
+                sb.Append(string.Format("where pop.Id = {0}",Id));
 
-            ReportDataSource ds = new ReportDataSource(dt.TableName, dt);
-            ReportDataSource ds2 = new ReportDataSource(dtl.TableName, dtl);
+                sda = new SqlCeDataAdapter(sb.ToString(), con);
+
+                dbintegracaoDataSetTableAdapters.empresa_logoTableAdapter Empresa_Logo = new dbintegracaoDataSetTableAdapters.empresa_logoTableAdapter();
+
+                DataTable dt = new DataTable();
+                DataTable dtl = new DataTable();
+
+                //dt = prod.GetData(Convert.ToInt64(Id));
+                sda.Fill(dt);
+                dtl = Empresa_Logo.GetData();
+
+                ReportDataSource ds = new ReportDataSource(dt.TableName, dt);
+                ReportDataSource ds2 = new ReportDataSource(dtl.TableName, dtl);
 
 
-            ds.Name = "DataSet1";
-            ds2.Name = "DataSet2";
-            rvRelatorios.LocalReport.DataSources.Add(ds);
-            rvRelatorios.LocalReport.DataSources.Add(ds2);
+                ds.Name = "DataSet1";
+                ds2.Name = "DataSet2";
+                rvRelatorios.LocalReport.DataSources.Add(ds);
+                rvRelatorios.LocalReport.DataSources.Add(ds2);
 
-            //rvRelatorios.LocalReport.SubreportProcessing += new SubreportProcessingEventHandler(onSubreportProcessing);
+                //rvRelatorios.LocalReport.SubreportProcessing += new SubreportProcessingEventHandler(onSubreportProcessing);
 
-            ReportParameterCollection parametros = new ReportParameterCollection();
-            ReportParameter parametro = new ReportParameter();
-            parametro.Name = "EndLaboratorio";
-            parametro.Values.Add("Documento sem valor fiscal");
-            parametro.Values.Add("");
-            parametros.Add(parametro);
-            rvRelatorios.LocalReport.SetParameters(parametros);
+                ReportParameterCollection parametros = new ReportParameterCollection();
+                ReportParameter parametro = new ReportParameter();
+                parametro.Name = "EndLaboratorio";
+                parametro.Values.Add("Documento sem valor fiscal");
+                parametros.Add(parametro);
+
+                ReportParameter nrRecibo = new ReportParameter();
+                nrRecibo.Name = "nrRecibo";
+                nrRecibo.Values.Add(Sequence.GetNextVal("sq_recibo_parcela_sequence").ToString());
+                parametros.Add(nrRecibo);
+
+                rvRelatorios.LocalReport.SetParameters(parametros);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                sda.Dispose();
+                con.Close();
+                con.Dispose();
+            }             
         }
 
         //protected void onSubreportProcessing(object sender, SubreportProcessingEventArgs e)

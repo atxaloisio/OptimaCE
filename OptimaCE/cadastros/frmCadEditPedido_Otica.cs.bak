@@ -20,12 +20,10 @@ namespace prjbase
     {
         private ClienteBLL clienteBLL;
         private ProdutoBLL produtoBLL;
-        private ParcelaBLL parcelaBLL;
-        private Motivo_EntregaBLL motivo_EntregaBLL;
+        private ParcelaBLL parcelaBLL;        
         private Pedido_OticaBLL pedido_OticaBLL;
         private VendedorBLL vendedorBLL;
-        private Vendedor_LocalidadeBLL vendedor_LocalidadeBLL;
-        private CaixaBLL caixaBLL;
+        private Vendedor_LocalidadeBLL vendedor_LocalidadeBLL;        
 
         #region Constante de Colunas da Grid
         private const int col_Id = 0;

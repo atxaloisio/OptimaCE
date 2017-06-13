@@ -714,8 +714,9 @@ namespace prjbase
 
         protected override void imprimirRegistro(object sender, EventArgs e)
         {
-            frmRelPedido_Otica relatorio = new frmRelPedido_Otica();
-            relatorio.rvRelatorios.LocalReport.ReportEmbeddedResource = "prjbase.relatorios.relPedido_Otica.rdlc";
+            frmRelReciboVenda relatorio = new frmRelReciboVenda();
+
+            relatorio.rvRelatorios.LocalReport.ReportEmbeddedResource = "prjbase.relatorios.relReciboVenda.rdlc";
             if (dgvDados.CurrentRow != null)
             {
                 if (dgvDados[0, dgvDados.CurrentRow.Index].Value != null)
