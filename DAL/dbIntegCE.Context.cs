@@ -73,5 +73,9 @@ namespace DAL
         public virtual DbSet<Usuario> Usuarios1 { get; set; }
         public virtual DbSet<Vendedor> Vendedors1 { get; set; }
         public virtual DbSet<Vendedor_Localidade> Vendedor_Localidade1 { get; set; }
+        public virtual DbSet<Contas_Pagar> Contas_Pagar1 { get; set; }
+        public virtual DbSet<Filial> Filials1 { get; set; }
+        public virtual DbSet<Item_Livro_Caixa> Item_Livro_Caixa1 { get; set; }
+        public virtual DbSet<Livro_Caixa> Livro_Caixa1 { get; set; }
     }
 }

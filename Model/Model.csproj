@@ -67,6 +67,9 @@
     <Compile Include="CNAE.cs">
       <DependentUpon>dbIntegCE.tt</DependentUpon>
     </Compile>
+    <Compile Include="Contas_Pagar.cs">
+      <DependentUpon>dbIntegCE.tt</DependentUpon>
+    </Compile>
     <Compile Include="Conta_Corrente.cs">
       <DependentUpon>dbIntegCE.tt</DependentUpon>
     </Compile>
@@ -80,6 +83,9 @@
     </Compile>
     <Compile Include="EntityBase.cs" />
     <Compile Include="Familia_Produto.cs">
+      <DependentUpon>dbIntegCE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Filial.cs">
       <DependentUpon>dbIntegCE.tt</DependentUpon>
     </Compile>
     <Compile Include="FiltroPesquisa.cs" />
@@ -105,6 +111,12 @@
       <DependentUpon>dbIntegCE.tt</DependentUpon>
     </Compile>
     <Compile Include="ItemPedido_Produto.cs">
+      <DependentUpon>dbIntegCE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Item_Livro_Caixa.cs">
+      <DependentUpon>dbIntegCE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Livro_Caixa.cs">
       <DependentUpon>dbIntegCE.tt</DependentUpon>
     </Compile>
     <Compile Include="Motivo_Entrega.cs">
@@ -167,6 +179,7 @@
     <Compile Include="Rota.cs">
       <DependentUpon>dbIntegCE.tt</DependentUpon>
     </Compile>
+    <Compile Include="stUsuario.cs" />
     <Compile Include="Tag.cs">
       <DependentUpon>dbIntegCE.tt</DependentUpon>
     </Compile>
@@ -193,6 +206,7 @@
     <Compile Include="Views\Cliente_ParcelaView.cs" />
     <Compile Include="Views\Cliente_TransportadoraView.cs" />
     <Compile Include="Views\Cliente_VendedorView.cs" />
+    <Compile Include="Views\FilialView.cs" />
     <Compile Include="Views\ParcelaView.cs" />
     <Compile Include="Views\Pedido_OticaAgrupaView.cs" />
     <Compile Include="Views\Pedido_OticaParcelaView.cs" />

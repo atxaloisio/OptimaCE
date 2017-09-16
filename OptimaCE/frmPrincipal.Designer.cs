@@ -65,10 +65,10 @@
             this.mnuJanFecharTodos = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAjuda = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTopicosAjuda = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuRegistro = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuSobre = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuRegistro = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSistema.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -399,7 +399,15 @@
             this.mnuTopicosAjuda.Name = "mnuTopicosAjuda";
             this.mnuTopicosAjuda.Size = new System.Drawing.Size(176, 22);
             this.mnuTopicosAjuda.Text = "Tópicos da Ajuda ";
+            this.mnuTopicosAjuda.Visible = false;
             this.mnuTopicosAjuda.Click += new System.EventHandler(this.mnuTopicosAjuda_Click);
+            // 
+            // mnuRegistro
+            // 
+            this.mnuRegistro.Name = "mnuRegistro";
+            this.mnuRegistro.Size = new System.Drawing.Size(176, 22);
+            this.mnuRegistro.Text = "Registro de Licença";
+            this.mnuRegistro.Click += new System.EventHandler(this.mnuRegistro_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -419,13 +427,6 @@
             this.sairToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
             this.sairToolStripMenuItem.Text = "Sair";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
-            // 
-            // mnuRegistro
-            // 
-            this.mnuRegistro.Name = "mnuRegistro";
-            this.mnuRegistro.Size = new System.Drawing.Size(176, 22);
-            this.mnuRegistro.Text = "Registro de Licença";
-            this.mnuRegistro.Click += new System.EventHandler(this.mnuRegistro_Click);
             // 
             // frmPrincipal
             // 

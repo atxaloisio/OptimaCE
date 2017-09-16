@@ -559,6 +559,11 @@ namespace prjbase
                 }
             }
         }
+
+        private void frmCadEditProduto_Activated(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+        }
     }
 }
 

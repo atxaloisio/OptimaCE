@@ -121,6 +121,9 @@ namespace prjbase
             }
         }
 
-        
+        private void frmCadEditTipo_Armacao_Activated(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+        }
     }
 }

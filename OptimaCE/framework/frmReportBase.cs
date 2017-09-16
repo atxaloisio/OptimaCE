@@ -66,13 +66,13 @@ namespace prjbase
         //    e.DataSources.Add(new ReportDataSource("DataSetItemPedido_Otica", (object)dt));
         //}
         
-        public virtual void ImprimirDireto()
+        public virtual void ImprimirDireto(PageProps PageProps)
         {
             ImprimirDireto ImprimirDireto = new ImprimirDireto();
             try
             {
                 CarregaRelatorio();
-                ImprimirDireto.Print(rvRelatorios.LocalReport);
+                ImprimirDireto.Print(rvRelatorios.LocalReport,PageProps);
             }
             catch (Exception ex)
             {

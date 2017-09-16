@@ -26,6 +26,7 @@ namespace prjbase
 
         protected override void LoadToControls()
         {
+            this.Cursor = Cursors.WaitCursor;
             if (Id != null)
             {
                 ClienteBLL = new ClienteBLL();
@@ -62,6 +63,7 @@ namespace prjbase
                     txtCEP.TextMaskFormat = MaskFormat.IncludeLiterals;
                     txtCEP.Text = Cliente.cep;
                     txtCEP.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+                    txtObsEndereco.Text = Cliente.obsEndereco;
 
                     //Telefone Email
                     txtDDD2.Text = Cliente.telefone2_ddd;
@@ -70,6 +72,7 @@ namespace prjbase
                     txtFax.Text = Cliente.fax_numero;
                     txtEmail.Text = Cliente.email;
                     txtWebSite.Text = Cliente.homepage;
+                    txtObsTelefonesEmail.Text = Cliente.obsTelefonesEmail;
 
                     txtInscricaoEstadual.Text = Cliente.inscricao_estadual;
                     txtInscricaoMunicipal.Text = Cliente.inscricao_municipal;
@@ -83,6 +86,7 @@ namespace prjbase
                     imgFotoCliente.Refresh();
                 }
             }
+            this.Cursor = Cursors.Default;
         }
 
         protected override bool salvar(object sender, EventArgs e)
@@ -129,13 +133,14 @@ namespace prjbase
                         Tag tg = tagBLL.getTag("Cliente").FirstOrDefault();
                         Cliente.cliente_tag.Add(new Cliente_Tag { Id_tag = tg.Id, tag = tg.tag1 });
                                                                         
-                        ClienteBLL.AdicionarCliente(Cliente);                        
+                        ClienteBLL.AdicionarCliente(Cliente);                                             
                     }
 
                     if ((intOmie) & (updateClienteOmie))
                     {
                         if (Cliente.codigo_cliente_omie <= 0)
                         {
+                            Cliente.Id_empresa = Program.usuario_logado.Id_empresa;
                             proxy.IncluirClientes(Cliente);
                         }
                         else
@@ -146,7 +151,14 @@ namespace prjbase
 
                     if (Cliente.Id != 0)
                     {
+                        Id = Cliente.Id;
                         txtId.Text = Cliente.Id.ToString();
+                        txtCodInt.Text = Cliente.codigo_cliente_integracao;
+                        if (Cliente.codigo_cliente_omie > 0)
+                        {
+                            txtCodigo.Text = Cliente.codigo_cliente_omie.ToString();
+                        }
+                        
                     }
 
                     SalvarImagem(Cliente.Id);
@@ -173,13 +185,14 @@ namespace prjbase
         private bool ValidaDadosEspecifico()
         {
             bool retorno = true;
+            List<Cliente> cliList = null;
 
             bool layoutLaboratorio = Convert.ToBoolean(Parametro.GetParametro("layoutLaboratorio"));
 
             if (layoutLaboratorio)
             {
                 ClienteBLL = new ClienteBLL();
-                List<Cliente> cliList = ClienteBLL.getCliente(p => p.cnpj_cpf.Contains(txtCNPJCPF.Text));
+                cliList = ClienteBLL.getCliente(p => p.cnpj_cpf.Contains(txtCNPJCPF.Text), true);
                 if (cliList.Count() > 0)
                 {
                     if (Id != cliList.FirstOrDefault().Id)
@@ -190,6 +203,31 @@ namespace prjbase
                     }
                 }
             }
+
+            if (Id == null)
+            {
+                ClienteBLL = new ClienteBLL();
+                cliList = ClienteBLL.getCliente(p => p.razao_social == txtRazaoSocial.Text & p.cliente_tag.Any(c => c.tag == "Cliente"), true);
+                if (cliList.Count() > 0)
+                {
+                    epValidaDados.SetError(txtRazaoSocial, "Razão social / Nome Completo  informada já está cadastrada.");
+                    MessageBox.Show("Razão social / Nome Completo informada já está cadastrada.", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    retorno = false;
+                }
+
+                if (retorno)
+                {
+                    cliList = ClienteBLL.getCliente(p => p.nome_fantasia == txtNomeFantasia.Text & p.cliente_tag.Any(c => c.tag == "Cliente"), true);
+                    if (cliList.Count() > 0)
+                    {
+                        epValidaDados.SetError(txtNomeFantasia, "Nome Fantasia / Nome Abreviado informado já está cadastrado.");
+                        MessageBox.Show("Nome Fantasia / Nome Abreviado informado já está cadastrado.", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        retorno = false;
+                    }
+                }
+            }
+            
+
             
             return retorno;
         }
@@ -213,23 +251,28 @@ namespace prjbase
             Cliente.cnpj_cpf = txtCNPJCPF.Text;
             Cliente.contato = txtContato.Text;
 
-            if (string.IsNullOrEmpty(txtDtNascimento.Text))
+            if (!string.IsNullOrEmpty(txtDtNascimento.Text))
             {
+                txtDtNascimento.TextMaskFormat = MaskFormat.IncludePromptAndLiterals;
                 Cliente.nascimento = Convert.ToDateTime(txtDtNascimento.Text);
+                txtDtNascimento.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
             }
 
             Cliente.telefone1_ddd = txtDDD.Text;
             Cliente.telefone1_numero = txtTelefone.Text;
             Cliente.bloqueado = chkBloqueado.Checked ? "S" : "N";
 
+
             //Endereço
             Cliente.endereco = txtEndereco.Text;
             Cliente.endereco_numero = txtNumero.Text;
             Cliente.bairro = txtBairro.Text;
             Cliente.estado = cbUF.Text;
+            Cliente.codigo_pais = "1058"; //Brasil
             Cliente.cidade = cbCidade.Text;
             Cliente.complemento = txtComplemento.Text;
             Cliente.cep = txtCEP.Text;
+            Cliente.obsEndereco = txtObsEndereco.Text;
 
             //Telefone Email
             Cliente.telefone2_ddd = txtDDD2.Text;
@@ -238,6 +281,7 @@ namespace prjbase
             Cliente.fax_numero = txtFax.Text;
             Cliente.email = txtEmail.Text;
             Cliente.homepage = txtWebSite.Text;
+            Cliente.obsTelefonesEmail = txtObsTelefonesEmail.Text;
 
             Cliente.inscricao_estadual = txtInscricaoEstadual.Text;
             Cliente.inscricao_municipal = txtInscricaoMunicipal.Text;
@@ -572,11 +616,17 @@ namespace prjbase
         private void CapturaCamera()
         {
             frmUtilCamera camera = new frmUtilCamera();
-            if (camera.ExibeDialogo() == DialogResult.OK)
+            try
             {
-                imgFotoCliente.Image = (Bitmap)camera.imgCaptura.Clone();
+                if (camera.ExibeDialogo() == DialogResult.OK)
+                {
+                    imgFotoCliente.Image = (Bitmap)camera.imgCaptura.Clone();
+                }
             }
-            camera.Dispose(); 
+            finally
+            {
+                camera.Dispose();
+            }                        
         }
 
         private void btnAbrirImagem_Click(object sender, EventArgs e)
@@ -604,6 +654,48 @@ namespace prjbase
                     e.Cancel = true;
                 }
                         ((MaskedTextBox)sender).TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+            }
+        }
+
+        private void txtObservacoes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtObservacoes.AppendText("\r\n");
+                txtObservacoes.ScrollToCaret();
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void frmCadEditCliente_Activated(object sender, EventArgs e)
+        {            
+            this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void frmCadEditCliente_Resize(object sender, EventArgs e)
+        {
+            if (!isDialogo)
+            {
+                pnlJanela.Dock = DockStyle.None;
+                pnlJanela.Left = (this.Width / 2) - (pnlJanela.Width / 2);
+                pnlJanela.Top = (this.Height / 2) - (pnlJanela.Height / 2);
+
+                if (pnlJanela.Top <= 0)
+                {
+                    pnlJanela.Top = 5;
+                }
+
+                if (pnlJanela.Left <= 0)
+                {
+                    pnlJanela.Left = 5;
+                    pnlJanela.Top = 5;
+                    pnlJanela.Dock = DockStyle.Left;
+                    pnlPrincipal.Width = pnlJanela.Width;
+                }
+                else
+                {                    
+                    pnlJanela.Left = pnlJanela.Left - (pnlBotoes.Width / 2);
+                }               
             }
         }
     }

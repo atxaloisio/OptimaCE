@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCadEditPedido_Otica));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblPedidoCancelado = new System.Windows.Forms.Label();
             this.txtValorTotal = new System.Windows.Forms.TextBox();
@@ -66,6 +66,8 @@
             this.imgFotoCliente = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox20 = new System.Windows.Forms.GroupBox();
+            this.txtDtInc = new System.Windows.Forms.TextBox();
+            this.txtUsuarioInc = new System.Windows.Forms.TextBox();
             this.txtIdPedLente = new System.Windows.Forms.TextBox();
             this.txtIdPedArmacao = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -155,9 +157,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnRemoveItem = new System.Windows.Forms.Button();
             this.btnAddItem = new System.Windows.Forms.Button();
+            this.txtIdFilial = new System.Windows.Forms.TextBox();
+            this.txtIdEmpresa = new System.Windows.Forms.TextBox();
             this.pnlBotoes.SuspendLayout();
-            this.pnlPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epValidaDados)).BeginInit();
+            this.pnlPrincipal.SuspendLayout();
+            this.pnlJanela.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgFotoCliente)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -185,16 +190,34 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
+            // btnSalvar
+            // 
+            this.btnSalvar.BackColor = System.Drawing.Color.Green;
+            // 
+            // btnFechar
+            // 
+            this.btnFechar.BackColor = System.Drawing.Color.Green;
+            this.btnFechar.Location = new System.Drawing.Point(3, 2197);
+            // 
+            // btnIncluir
+            // 
+            this.btnIncluir.BackColor = System.Drawing.Color.Green;
+            // 
             // pnlBotoes
             // 
-            this.pnlBotoes.Size = new System.Drawing.Size(115, 597);
+            this.pnlBotoes.Size = new System.Drawing.Size(115, 649);
             // 
             // pnlPrincipal
             // 
-            this.pnlPrincipal.Controls.Add(this.groupBox3);
-            this.pnlPrincipal.Controls.Add(this.groupBox2);
-            this.pnlPrincipal.Controls.Add(this.groupBox1);
-            this.pnlPrincipal.Size = new System.Drawing.Size(1007, 597);
+            this.pnlPrincipal.Size = new System.Drawing.Size(1037, 649);
+            // 
+            // pnlJanela
+            // 
+            this.pnlJanela.Controls.Add(this.groupBox3);
+            this.pnlJanela.Controls.Add(this.groupBox2);
+            this.pnlJanela.Controls.Add(this.groupBox1);
+            this.pnlJanela.Location = new System.Drawing.Point(24, 46);
+            this.pnlJanela.Size = new System.Drawing.Size(1007, 597);
             // 
             // groupBox1
             // 
@@ -252,7 +275,7 @@
             // 
             this.txtValorTotal.Enabled = false;
             this.epValidaDados.SetFraseErro(this.txtValorTotal, "Numero do pedido no Cliente obrigatório.");
-            this.txtValorTotal.Location = new System.Drawing.Point(424, 20);
+            this.txtValorTotal.Location = new System.Drawing.Point(272, 20);
             this.txtValorTotal.MaxLength = 8;
             this.txtValorTotal.Name = "txtValorTotal";
             this.epValidaDados.SetObrigatorio(this.txtValorTotal, false);
@@ -265,7 +288,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(341, 23);
+            this.label4.Location = new System.Drawing.Point(189, 23);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(78, 16);
             this.label4.TabIndex = 67;
@@ -354,8 +377,10 @@
             // 
             this.epValidaDados.SetFraseErro(this.txtNomeMedico, "Numero do pedido no Cliente obrigatório.");
             this.txtNomeMedico.Location = new System.Drawing.Point(400, 79);
+            this.txtNomeMedico.MaxLength = 100;
             this.txtNomeMedico.Name = "txtNomeMedico";
             this.epValidaDados.SetObrigatorio(this.txtNomeMedico, false);
+            this.txtNomeMedico.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.txtNomeMedico.Size = new System.Drawing.Size(302, 23);
             this.txtNomeMedico.TabIndex = 9;
             // 
@@ -385,18 +410,17 @@
             // 
             // txtDtEmissao
             // 
-            this.txtDtEmissao.Enabled = false;
             this.epValidaDados.SetFraseErro(this.txtDtEmissao, "Data de Emissão obrigatório");
-            this.txtDtEmissao.Location = new System.Drawing.Point(250, 20);
+            this.txtDtEmissao.Location = new System.Drawing.Point(582, 49);
             this.txtDtEmissao.Mask = "00/00/0000";
             this.txtDtEmissao.Name = "txtDtEmissao";
             this.epValidaDados.SetObrigatorio(this.txtDtEmissao, true);
-            this.txtDtEmissao.Size = new System.Drawing.Size(87, 23);
+            this.txtDtEmissao.Size = new System.Drawing.Size(84, 23);
             this.txtDtEmissao.TabIndex = 4;
-            this.txtDtEmissao.TabStop = false;
             this.txtDtEmissao.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.epValidaDados.SetTipoValidacao(this.txtDtEmissao, libComponente.TipoValidacao.Vazio);
             this.txtDtEmissao.ValidatingType = typeof(System.DateTime);
+            this.txtDtEmissao.Enter += new System.EventHandler(this.txt_Enter);
             this.txtDtEmissao.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onlyNumber_KeyPress);
             this.txtDtEmissao.Validating += new System.ComponentModel.CancelEventHandler(this.Ctrls_Validating);
             this.txtDtEmissao.Validated += new System.EventHandler(this.Ctrls_Validated);
@@ -417,7 +441,7 @@
             // txtHrPrevEntrega
             // 
             this.epValidaDados.SetFraseErro(this.txtHrPrevEntrega, "");
-            this.txtHrPrevEntrega.Location = new System.Drawing.Point(726, 47);
+            this.txtHrPrevEntrega.Location = new System.Drawing.Point(834, 49);
             this.txtHrPrevEntrega.Mask = "00:00";
             this.txtHrPrevEntrega.Name = "txtHrPrevEntrega";
             this.epValidaDados.SetObrigatorio(this.txtHrPrevEntrega, false);
@@ -431,7 +455,7 @@
             // txtDtPrevEntrega
             // 
             this.epValidaDados.SetFraseErro(this.txtDtPrevEntrega, "Previsão de entrega obrigatório.");
-            this.txtDtPrevEntrega.Location = new System.Drawing.Point(638, 47);
+            this.txtDtPrevEntrega.Location = new System.Drawing.Point(746, 49);
             this.txtDtPrevEntrega.Mask = "00/00/0000";
             this.txtDtPrevEntrega.Name = "txtDtPrevEntrega";
             this.epValidaDados.SetObrigatorio(this.txtDtPrevEntrega, false);
@@ -448,15 +472,15 @@
             // lblPrevEntrega
             // 
             this.lblPrevEntrega.AutoSize = true;
-            this.lblPrevEntrega.Location = new System.Drawing.Point(537, 52);
+            this.lblPrevEntrega.Location = new System.Drawing.Point(669, 52);
             this.lblPrevEntrega.Name = "lblPrevEntrega";
-            this.lblPrevEntrega.Size = new System.Drawing.Size(97, 16);
+            this.lblPrevEntrega.Size = new System.Drawing.Size(75, 16);
             this.lblPrevEntrega.TabIndex = 39;
-            this.lblPrevEntrega.Text = "Prev. Entrega";
+            this.lblPrevEntrega.Text = "P. Entrega";
             // 
             // btnPesquisa
             // 
-            this.btnPesquisa.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.btnPesquisa.BackColor = System.Drawing.Color.Green;
             this.btnPesquisa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPesquisa.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnPesquisa.Image = ((System.Drawing.Image)(resources.GetObject("btnPesquisa.Image")));
@@ -474,11 +498,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(166, 23);
+            this.label5.Location = new System.Drawing.Point(525, 52);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(82, 16);
+            this.label5.Size = new System.Drawing.Size(59, 16);
             this.label5.TabIndex = 36;
-            this.label5.Text = "Dt. Emissão";
+            this.label5.Text = "Emissão";
             // 
             // lblTransportadora
             // 
@@ -559,7 +583,7 @@
             this.txtClienteNome.Name = "txtClienteNome";
             this.epValidaDados.SetObrigatorio(this.txtClienteNome, true);
             this.txtClienteNome.ReadOnly = true;
-            this.txtClienteNome.Size = new System.Drawing.Size(342, 23);
+            this.txtClienteNome.Size = new System.Drawing.Size(327, 23);
             this.txtClienteNome.TabIndex = 2;
             this.txtClienteNome.TabStop = false;
             this.txtClienteNome.Validated += new System.EventHandler(this.Ctrls_Validated);
@@ -607,6 +631,10 @@
             // 
             // groupBox20
             // 
+            this.groupBox20.Controls.Add(this.txtIdFilial);
+            this.groupBox20.Controls.Add(this.txtIdEmpresa);
+            this.groupBox20.Controls.Add(this.txtDtInc);
+            this.groupBox20.Controls.Add(this.txtUsuarioInc);
             this.groupBox20.Controls.Add(this.txtIdPedLente);
             this.groupBox20.Controls.Add(this.txtIdPedArmacao);
             this.groupBox20.Controls.Add(this.label16);
@@ -629,6 +657,28 @@
             this.groupBox20.TabIndex = 8;
             this.groupBox20.TabStop = false;
             this.groupBox20.Text = "Dados da armação";
+            // 
+            // txtDtInc
+            // 
+            this.epValidaDados.SetFraseErro(this.txtDtInc, "");
+            this.txtDtInc.Location = new System.Drawing.Point(844, 50);
+            this.txtDtInc.Name = "txtDtInc";
+            this.epValidaDados.SetObrigatorio(this.txtDtInc, false);
+            this.txtDtInc.Size = new System.Drawing.Size(71, 23);
+            this.txtDtInc.TabIndex = 52;
+            this.txtDtInc.TabStop = false;
+            this.txtDtInc.Visible = false;
+            // 
+            // txtUsuarioInc
+            // 
+            this.epValidaDados.SetFraseErro(this.txtUsuarioInc, "");
+            this.txtUsuarioInc.Location = new System.Drawing.Point(769, 50);
+            this.txtUsuarioInc.Name = "txtUsuarioInc";
+            this.epValidaDados.SetObrigatorio(this.txtUsuarioInc, false);
+            this.txtUsuarioInc.Size = new System.Drawing.Size(71, 23);
+            this.txtUsuarioInc.TabIndex = 51;
+            this.txtUsuarioInc.TabStop = false;
+            this.txtUsuarioInc.Visible = false;
             // 
             // txtIdPedLente
             // 
@@ -1586,9 +1636,9 @@
             // 
             // VLRUNITARIO
             // 
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.VLRUNITARIO.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Format = "N2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.VLRUNITARIO.DefaultCellStyle = dataGridViewCellStyle1;
             this.VLRUNITARIO.HeaderText = "Vlr Unitário";
             this.VLRUNITARIO.Name = "VLRUNITARIO";
             this.VLRUNITARIO.Width = 110;
@@ -1601,18 +1651,18 @@
             // 
             // VLRDESCONTO
             // 
-            dataGridViewCellStyle5.Format = "N2";
-            dataGridViewCellStyle5.NullValue = null;
-            this.VLRDESCONTO.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.VLRDESCONTO.DefaultCellStyle = dataGridViewCellStyle2;
             this.VLRDESCONTO.HeaderText = "Vlr Desc";
             this.VLRDESCONTO.Name = "VLRDESCONTO";
             this.VLRDESCONTO.Width = 110;
             // 
             // VLTTOTAL
             // 
-            dataGridViewCellStyle6.Format = "N2";
-            dataGridViewCellStyle6.NullValue = null;
-            this.VLTTOTAL.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.VLTTOTAL.DefaultCellStyle = dataGridViewCellStyle3;
             this.VLTTOTAL.HeaderText = "Total";
             this.VLTTOTAL.Name = "VLTTOTAL";
             this.VLTTOTAL.ReadOnly = true;
@@ -1629,7 +1679,7 @@
             // 
             // btnRemoveItem
             // 
-            this.btnRemoveItem.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.btnRemoveItem.BackColor = System.Drawing.Color.Green;
             this.btnRemoveItem.CausesValidation = false;
             this.btnRemoveItem.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnRemoveItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1645,7 +1695,7 @@
             // 
             // btnAddItem
             // 
-            this.btnAddItem.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.btnAddItem.BackColor = System.Drawing.Color.Green;
             this.btnAddItem.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnAddItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -1658,18 +1708,42 @@
             this.btnAddItem.UseVisualStyleBackColor = false;
             this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
             // 
+            // txtIdFilial
+            // 
+            this.epValidaDados.SetFraseErro(this.txtIdFilial, "");
+            this.txtIdFilial.Location = new System.Drawing.Point(895, 20);
+            this.txtIdFilial.Name = "txtIdFilial";
+            this.epValidaDados.SetObrigatorio(this.txtIdFilial, false);
+            this.txtIdFilial.Size = new System.Drawing.Size(44, 23);
+            this.txtIdFilial.TabIndex = 54;
+            this.txtIdFilial.TabStop = false;
+            this.txtIdFilial.Visible = false;
+            // 
+            // txtIdEmpresa
+            // 
+            this.epValidaDados.SetFraseErro(this.txtIdEmpresa, "");
+            this.txtIdEmpresa.Location = new System.Drawing.Point(846, 20);
+            this.txtIdEmpresa.Name = "txtIdEmpresa";
+            this.epValidaDados.SetObrigatorio(this.txtIdEmpresa, false);
+            this.txtIdEmpresa.Size = new System.Drawing.Size(43, 23);
+            this.txtIdEmpresa.TabIndex = 53;
+            this.txtIdEmpresa.TabStop = false;
+            this.txtIdEmpresa.Visible = false;
+            // 
             // frmCadEditPedido_Otica
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScroll = true;
             this.CancelButton = null;
-            this.ClientSize = new System.Drawing.Size(1122, 597);
+            this.ClientSize = new System.Drawing.Size(1152, 649);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmCadEditPedido_Otica";
             this.Text = "Pedido de Venda";
+            this.Activated += new System.EventHandler(this.frmCadEditPedido_Otica_Activated);
             this.pnlBotoes.ResumeLayout(false);
-            this.pnlPrincipal.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.epValidaDados)).EndInit();
+            this.pnlPrincipal.ResumeLayout(false);
+            this.pnlJanela.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgFotoCliente)).EndInit();
@@ -1842,5 +1916,9 @@
         private System.Windows.Forms.TextBox txtoe_eixo;
         private System.Windows.Forms.TextBox txtod_eixo;
         private System.Windows.Forms.Label lblPedidoCancelado;
+        private System.Windows.Forms.TextBox txtDtInc;
+        private System.Windows.Forms.TextBox txtUsuarioInc;
+        private System.Windows.Forms.TextBox txtIdFilial;
+        private System.Windows.Forms.TextBox txtIdEmpresa;
     }
 }

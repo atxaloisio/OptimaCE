@@ -34,7 +34,7 @@ namespace prjbase
         {
             try
             {
-                atualizagrid = true;
+                
                 if (ValidaAcessoFuncao(Operacao.Cancelar))
                 {
                     if (salvar(sender, e))

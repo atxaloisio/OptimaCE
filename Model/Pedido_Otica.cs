@@ -75,6 +75,8 @@ namespace Model
         public string cancelado { get; set; }
         public string motivo_cancelamento { get; set; }
         public Nullable<System.DateTime> data_cancelamento { get; set; }
+        public Nullable<long> Id_empresa { get; set; }
+        public Nullable<long> Id_filial { get; set; }
     
         public virtual Cliente cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

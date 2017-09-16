@@ -19,6 +19,9 @@ namespace prjbase
     public partial class frmPrincipal : Form
     {
         private string nomeApp = string.Empty;
+        private bool vwLaboratorio = false;
+        private bool vwOtica = false;
+        private bool intERP = false;
         public frmPrincipal()
         {                       
             InitializeComponent();
@@ -73,10 +76,12 @@ namespace prjbase
 
             if (instanciar)
             {
+                this.Cursor = Cursors.WaitCursor;
                 var frm = new frmListClientes();
                 frm.ConfigurarForm(this);
                 frm.Tag = ((ToolStripMenuItem)sender).Tag;
                 frm.Show();
+                this.Cursor = Cursors.Default;
             }
             
         }
@@ -198,7 +203,31 @@ namespace prjbase
 
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
-            confPermissaoMenu();        
+            this.Cursor = Cursors.WaitCursor;
+            confParametros();
+            confPermissaoMenu();
+            this.Cursor = Cursors.Default;
+        }
+
+        private void confParametros()
+        {
+            string layoutLaboratorio = Parametro.GetParametro("layoutLaboratorio");
+            if (!string.IsNullOrEmpty(layoutLaboratorio))
+            {
+                vwLaboratorio = Convert.ToBoolean(layoutLaboratorio);
+            }
+
+            string layoutOtica = Parametro.GetParametro("layoutOtica");
+            if (!string.IsNullOrEmpty(layoutOtica))
+            {
+                vwOtica = Convert.ToBoolean(layoutOtica);
+            }
+
+            string intOmie = Parametro.GetParametro("intOmie");
+            if (!string.IsNullOrEmpty(intOmie))
+            {
+                intERP = Convert.ToBoolean(intOmie);
+            }
         }
 
         private void confPermissaoMenu()
@@ -224,6 +253,32 @@ namespace prjbase
                             {
                                 exibemenu = fp.consultar == "S" || fp.editar == "S" || fp.excluir == "S" || fp.salvar == "S" || fp.imprimir == "S";
                                 child.Visible = exibemenu;
+                                //relacionar as tags que não serão exibidas na visão de Oticas
+                                if (exibemenu)
+                                {
+                                    switch (Convert.ToInt32(child.Tag))
+                                    {
+                                        case 1006:
+                                        case 1010:
+                                        case 1011:
+                                        case 10043:
+                                        case 10044:
+                                        case 3001:
+                                            {
+                                                child.Visible = vwLaboratorio;
+                                            }
+                                            break;
+                                        default:
+                                            break;
+                                    }
+
+                                    //Agrupamento de pedidos somente com interação para ERP
+                                    if (Convert.ToInt32(child.Tag) == 2001)
+                                    {
+                                        child.Visible = intERP;
+                                    }
+                                }
+                                
                             }
                         }
                     }
@@ -253,6 +308,31 @@ namespace prjbase
                         {
                             exibemenu = fp.consultar == "S" || fp.editar == "S" || fp.excluir == "S" || fp.salvar == "S" || fp.imprimir == "S";
                             child.Visible = exibemenu;
+                            //relacionar as tags que não serão exibidas na visão de Oticas
+                            if (exibemenu)
+                            {
+                                switch (Convert.ToInt32(child.Tag))
+                                {
+                                    case 1006:
+                                    case 1010:
+                                    case 1011:
+                                    case 10043:
+                                    case 10044:
+                                    case 3001:
+                                        {
+                                            child.Visible = vwLaboratorio;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                                //Agrupamento de pedidos somente com interação para ERP
+                                if (Convert.ToInt32(child.Tag) == 2001)
+                                {
+                                    child.Visible = intERP;
+                                }
+                            }
                         }
                     }
                 }                
@@ -355,9 +435,11 @@ namespace prjbase
 
         private void parametrosDeSistemasToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Cursor = Cursors.WaitCursor;
             frmParametroSistema ParametroSistema = new frmParametroSistema();
             ParametroSistema.Tag = ((ToolStripMenuItem)sender).Tag;
             ParametroSistema.ExibeDialogo();
+            this.Cursor = Cursors.Default;
             ParametroSistema.Dispose();            
         }
 
@@ -380,7 +462,8 @@ namespace prjbase
         private void rotasDeEntregaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmRelRota relatorio = new frmRelRota();
-            //relatorio.rvRelatorios.LocalReport.ReportEmbeddedResource = "prjbase.relatorios.relRota.rdlc";
+            //frmRelReciboVenda relatorio = new frmRelReciboVenda();
+            relatorio.rvRelatorios.LocalReport.ReportEmbeddedResource = "prjbase.relatorios.relRota.rdlc";
             relatorio.ExibeDialogo(this);
             relatorio.Dispose();
         }
@@ -487,10 +570,27 @@ namespace prjbase
 
         private void mnuStatusPedido_Click(object sender, EventArgs e)
         {
-            frmProcAtualizaStatusPedido AtualizaStatusPedido = new frmProcAtualizaStatusPedido();
-            AtualizaStatusPedido.Tag = ((ToolStripMenuItem)sender).Tag;
-            AtualizaStatusPedido.ExibeDialogo();
-            AtualizaStatusPedido.Dispose();
+            Boolean instanciar = true;
+
+            foreach (var mdiChildForm in MdiChildren)
+            {
+                if (mdiChildForm is frmProcAtualizaStatusPedido)
+                {
+                    instanciar = false;
+                    //mdiChildForm.Show();
+                    mdiChildForm.WindowState = FormWindowState.Maximized;
+                    mdiChildForm.BringToFront();
+                }
+            }
+
+            if (instanciar)
+            {                
+                frmProcAtualizaStatusPedido AtualizaStatusPedido = new frmProcAtualizaStatusPedido();
+                AtualizaStatusPedido.ConfigurarForm(this);
+                AtualizaStatusPedido.Tag = ((ToolStripMenuItem)sender).Tag;                
+                AtualizaStatusPedido.Show();
+                AtualizaStatusPedido.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void mnuAgrupamentoPedido_Click(object sender, EventArgs e)
@@ -692,7 +792,7 @@ namespace prjbase
             TrialMaker t = new TrialMaker("Optima", Application.StartupPath + "\\RegFile.reg",
                 path + "\\Optima.dbf",
                 "Fixo: +55 (21)3226-2645\nCelular: +55 (21)99205-6591",
-                5, 10, "745", true);
+                5, 10, "289", true);
 
             byte[] MyOwnKey = { 97, 250, 1, 5, 84, 21, 7, 63,
             4, 54, 87, 56, 123, 10, 3, 62,
@@ -700,6 +800,12 @@ namespace prjbase
             t.TripleDESKey = MyOwnKey;
             
             TrialMaker.RunTypes RT = t.ShowDialog();
+
+            if (RT == TrialMaker.RunTypes.Full)
+            {
+                MessageBox.Show("Está cópia já foi registrada.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+                
         }
     }
 }

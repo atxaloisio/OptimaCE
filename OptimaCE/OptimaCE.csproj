@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>D:\Optima\</PublishUrl>
+    <PublishUrl>C:\projetos\OptimaDeploy\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -25,7 +25,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <TargetCulture>pt-BR</TargetCulture>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -74,6 +74,12 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
+    <Reference Include="AForge">
+      <HintPath>..\..\Componentes\AForge.NET Framework-2.2.5\Release\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Controls">
+      <HintPath>..\..\Componentes\AForge.NET Framework-2.2.5\Release\AForge.Controls.dll</HintPath>
+    </Reference>
     <Reference Include="AForge.Video">
       <HintPath>..\Utils\AForge.Video.dll</HintPath>
     </Reference>
@@ -93,7 +99,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="FilterControls">
-      <HintPath>..\..\componentes\TrialMaker\TrialMaker\bin\Release\FilterControls.dll</HintPath>
+      <HintPath>..\..\Componentes\TrialMaker\TrialMaker\bin\Debug\FilterControls.dll</HintPath>
     </Reference>
     <Reference Include="libComponente">
       <HintPath>..\..\treinamento\ValidaCampos\libComponente\bin\Debug\libComponente.dll</HintPath>
@@ -105,10 +111,10 @@
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="SerialBoxes">
-      <HintPath>..\..\componentes\TrialMaker\TrialMaker\bin\Release\SerialBoxes.dll</HintPath>
+      <HintPath>..\..\Componentes\TrialMaker\TrialMaker\bin\Debug\SerialBoxes.dll</HintPath>
     </Reference>
     <Reference Include="SoftwareLocker">
-      <HintPath>..\..\componentes\TrialMaker\TrialMaker\bin\Release\SoftwareLocker.dll</HintPath>
+      <HintPath>..\..\Componentes\TrialMaker\TrialMaker\bin\Debug\SoftwareLocker.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -138,6 +144,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cadastros\frmCadEditFilial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="cadastros\frmCadEditFilial.Designer.cs">
+      <DependentUpon>frmCadEditFilial.cs</DependentUpon>
+    </Compile>
     <Compile Include="cadastros\frmCadEditFornecedor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -233,6 +245,12 @@
     </Compile>
     <Compile Include="cadastros\frmCadEditPerfil.Designer.cs">
       <DependentUpon>frmCadEditPerfil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dbintegracaoDataSet.cs">
+      <DependentUpon>dbintegracaoDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dbintegracaoDataSet.Designer.cs">
+      <DependentUpon>dbintegracaoDataSet.cs</DependentUpon>
     </Compile>
     <Compile Include="framework\frmBaseRelFiltro.cs">
       <SubType>Form</SubType>
@@ -390,14 +408,6 @@
     </Compile>
     <Compile Include="cadastros\frmCadEditCliente_Parcela.Designer.cs">
       <DependentUpon>frmCadEditCliente_Parcela.cs</DependentUpon>
-    </Compile>
-    <Compile Include="dbintegracaoDataSet.cs">
-      <DependentUpon>dbintegracaoDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="dbintegracaoDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbintegracaoDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="framework\frmBase.cs">
       <SubType>Form</SubType>
@@ -558,6 +568,9 @@
     <Compile Include="utilitarios\frmUtilCancelarPedido.Designer.cs">
       <DependentUpon>frmUtilCancelarPedido.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="cadastros\frmCadEditFilial.resx">
+      <DependentUpon>frmCadEditFilial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="cadastros\frmCadEditFornecedor.resx">
       <DependentUpon>frmCadEditFornecedor.cs</DependentUpon>
     </EmbeddedResource>
@@ -780,8 +793,8 @@
     </None>
     <None Include="dbintegracaoDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dbintegracaoDataSet1.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-      <LastGenOutput>dbintegracaoDataSet.Designer.cs</LastGenOutput>
     </None>
     <None Include="dbintegracaoDataSet.xss">
       <DependentUpon>dbintegracaoDataSet.xsd</DependentUpon>

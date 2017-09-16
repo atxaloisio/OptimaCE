@@ -41,6 +41,20 @@ namespace DAL
             }
         }
 
+        public IQueryable<T> GetTodos(Expression<Func<T, bool>> predicate, Expression<Func<T, string>> ordem, bool desc, int page, int pageSize)
+        {
+            //int skipRows = (page - 1) * pageSize;
+
+            if (desc)
+            {
+                return Context.Set<T>().Where(predicate).AsNoTracking().OrderByDescending(ordem).Skip(page).Take(pageSize);
+            }
+            else
+            {
+                return Context.Set<T>().Where(predicate).AsNoTracking().OrderBy(ordem).Skip(page).Take(pageSize);
+            }
+        }
+
         public IQueryable<T> Get(Expression<Func<T, bool>> predicate)
         {
             return Context.Set<T>().Where(predicate);

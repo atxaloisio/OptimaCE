@@ -20,10 +20,17 @@ namespace prjbase
             FilterInfoCollection videosources = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             if (videosources != null)
             {
-                videoSource = new AForge.Video.DirectShow.VideoCaptureDevice(videosources[0].MonikerString);
-                videoSource.NewFrame += new NewFrameEventHandler(CapturaFrame);
-               
-                videoSource.Start();
+                if (videosources.Count != 0)
+                {
+                    videoSource = new AForge.Video.DirectShow.VideoCaptureDevice(videosources[0].MonikerString);
+                    videoSource.NewFrame += new NewFrameEventHandler(CapturaFrame);
+
+                    videoSource.Start();
+                }
+                else
+                {
+                    throw new Exception("Hardware de Câmera não localizado.");
+                }
             }
         }
 

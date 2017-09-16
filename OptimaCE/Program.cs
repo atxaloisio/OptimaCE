@@ -27,7 +27,9 @@ namespace prjbase
 
             frmSplash splash = new frmSplash();
             splash.Show();
-            
+            splash.Cursor = Cursors.AppStarting;
+
+
             Application.DoEvents();
            
             splash.setMensagem("Carregando configurações.");
@@ -198,7 +200,7 @@ namespace prjbase
             //Application.DoEvents();
 
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
+            
 
             string path = appDataPath + @"\Optima\";
 
@@ -210,23 +212,23 @@ namespace prjbase
             TrialMaker t = new TrialMaker("Optima", Application.StartupPath + "\\RegFile.reg",
                 path + "\\Optima.dbf",
                 "Fixo: +55 (21)3226-2645\nCelular: +55 (21)99205-6591",
-                5, 10, "745", false);
+                30, 10, "289", false);
 
             byte[] MyOwnKey = { 97, 250, 1, 5, 84, 21, 7, 63,
             4, 54, 87, 56, 123, 10, 3, 62,
             7, 9, 20, 36, 37, 21, 101, 57};
             t.TripleDESKey = MyOwnKey;
-
+            splash.Cursor = Cursors.Default;
             splash.Dispose();
 
             TrialMaker.RunTypes RT = t.ShowDialog();
             bool is_trial;
             int NrDiasTrial = t.NrDiasFimAvalicao();
-
+                        
 
             if (RT != TrialMaker.RunTypes.Expired)
             {
-                string MsgLogin = string.Empty;
+                string MsgLogin = string.Empty; 
                 if (RT == TrialMaker.RunTypes.Full)
                     is_trial = false;
                 else
@@ -241,7 +243,7 @@ namespace prjbase
 
 
                 if (login.ShowDialog() == DialogResult.OK)
-                {
+                {                    
                     Application.Run(new frmPrincipal());
                 }
                 else
@@ -252,7 +254,7 @@ namespace prjbase
             else
             {
                 Application.Exit();
-            }
+            }                                   
         }
     }
 }

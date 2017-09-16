@@ -87,6 +87,10 @@
           <Property Name="usuario_alteracao" Type="nvarchar" MaxLength="40" />
           <Property Name="sincronizar" Type="nchar" MaxLength="1" />
           <Property Name="nascimento" Type="datetime" />
+          <Property Name="Id_empresa" Type="bigint" />
+          <Property Name="Id_filial" Type="bigint" />
+          <Property Name="obsEndereco" Type="nvarchar" MaxLength="512" />
+          <Property Name="obsTelefonesEmail" Type="nvarchar" MaxLength="512" />
         </EntityType>
         <EntityType Name="cliente_parcela">
           <Key>
@@ -168,6 +172,19 @@
           <Property Name="alteracao" Type="datetime" />
           <Property Name="usuario_alteracao" Type="nvarchar" MaxLength="40" />
         </EntityType>
+        <EntityType Name="contas_pagar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_fornecedor" Type="bigint" />
+          <Property Name="Documento" Type="nvarchar" MaxLength="20" />
+          <Property Name="valor" Type="nvarchar" MaxLength="100" />
+          <Property Name="vencimento" Type="datetime" />
+          <Property Name="categoria" Type="bigint" />
+          <Property Name="previsao" Type="datetime" />
+          <Property Name="pago" Type="nchar" MaxLength="1" />
+        </EntityType>
         <EntityType Name="empresa">
           <Key>
             <PropertyRef Name="Id" />
@@ -218,6 +235,45 @@
           <Property Name="inativo" Type="nchar" MaxLength="1" />
           <Property Name="sincronizar" Type="nchar" MaxLength="1" />
         </EntityType>
+        <EntityType Name="filial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_empresa" Type="bigint" />
+          <Property Name="codigo_filial" Type="bigint" />
+          <Property Name="codigo_filial_integracao" Type="nvarchar" MaxLength="20" />
+          <Property Name="cnpj" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="razao_social" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="nome_fantasia" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="logradouro" Type="nvarchar" MaxLength="6" />
+          <Property Name="endereco" Type="nvarchar" MaxLength="60" />
+          <Property Name="endereco_numero" Type="nvarchar" MaxLength="10" />
+          <Property Name="complemento" Type="nvarchar" MaxLength="60" />
+          <Property Name="bairro" Type="nvarchar" MaxLength="30" />
+          <Property Name="cidade" Type="nvarchar" MaxLength="40" />
+          <Property Name="estado" Type="nchar" MaxLength="2" />
+          <Property Name="cep" Type="nvarchar" MaxLength="10" />
+          <Property Name="codigo_pais" Type="nvarchar" MaxLength="4" />
+          <Property Name="data_adesao_sn" Type="datetime" />
+          <Property Name="telefone1_ddd" Type="nvarchar" MaxLength="5" />
+          <Property Name="telefone1_numero" Type="nvarchar" MaxLength="15" />
+          <Property Name="telefone2_ddd" Type="nvarchar" MaxLength="5" />
+          <Property Name="telefone2_numero" Type="nvarchar" MaxLength="15" />
+          <Property Name="fax_ddd" Type="nvarchar" MaxLength="5" />
+          <Property Name="fax_numero" Type="nvarchar" MaxLength="15" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
+          <Property Name="website" Type="nvarchar" MaxLength="100" />
+          <Property Name="cnae" Type="nvarchar" MaxLength="10" />
+          <Property Name="cnae_municipal" Type="nvarchar" MaxLength="10" />
+          <Property Name="inscricao_estadual" Type="nvarchar" MaxLength="20" />
+          <Property Name="inscricao_municipal" Type="nvarchar" MaxLength="20" />
+          <Property Name="inscricao_suframa" Type="nvarchar" MaxLength="20" />
+          <Property Name="regime_tributario" Type="smallint" />
+          <Property Name="inativa" Type="nchar" MaxLength="1" />
+          <Property Name="gera_nfse" Type="nchar" MaxLength="1" />
+          <Property Name="optante_simples_nacional" Type="nchar" MaxLength="1" />
+        </EntityType>
         <EntityType Name="formaspagvendas">
           <Key>
             <PropertyRef Name="Id" />
@@ -252,6 +308,17 @@
           <Property Name="usuario_inclusao" Type="nvarchar" MaxLength="40" />
           <Property Name="alteracao" Type="datetime" />
           <Property Name="usuario_alteracao" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="item_livro_caixa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_livro" Type="bigint" />
+          <Property Name="tipo" Type="nchar" MaxLength="1" />
+          <Property Name="descricao" Type="nvarchar" MaxLength="80" />
+          <Property Name="documento" Type="nvarchar" MaxLength="20" />
+          <Property Name="valor" Type="numeric" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="itempedido">
           <Key>
@@ -413,6 +480,15 @@
           <Property Name="usuario_inclusao" Type="nvarchar" MaxLength="40" />
           <Property Name="alteracao" Type="datetime" />
           <Property Name="usuario_alteracao" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="livro_caixa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data" Type="datetime" />
+          <Property Name="saldo_inicial" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="saldo_final" Type="numeric" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="motivo_entrega">
           <Key>
@@ -632,6 +708,8 @@
           <Property Name="cancelado" Type="nchar" MaxLength="1" />
           <Property Name="motivo_cancelamento" Type="nvarchar" MaxLength="256" />
           <Property Name="data_cancelamento" Type="datetime" />
+          <Property Name="Id_empresa" Type="bigint" />
+          <Property Name="Id_filial" Type="bigint" />
         </EntityType>
         <EntityType Name="pedido_otica_infoadic">
           <Key>
@@ -887,6 +965,8 @@
           <Property Name="alteracao" Type="datetime" />
           <Property Name="usuario_alteracao" Type="nvarchar" MaxLength="40" />
           <Property Name="inativo" Type="nchar" MaxLength="1" />
+          <Property Name="Id_empresa" Type="bigint" />
+          <Property Name="Id_filial" Type="bigint" />
         </EntityType>
         <EntityType Name="vendedor">
           <Key>
@@ -1003,6 +1083,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_filial_empresa">
+          <End Role="empresa" Type="Self.empresa" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="filial" Type="Self.filial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empresa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="filial">
+              <PropertyRef Name="Id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_funcao_perfil_funcao1">
           <End Role="funcao" Type="Self.funcao" Multiplicity="1" />
           <End Role="funcao_perfil" Type="Self.funcao_perfil" Multiplicity="*" />
@@ -1024,6 +1118,20 @@
             </Principal>
             <Dependent Role="funcao_perfil">
               <PropertyRef Name="Id_perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_item_livro_livro">
+          <End Role="livro_caixa" Type="Self.livro_caixa" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="item_livro_caixa" Type="Self.item_livro_caixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="livro_caixa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="item_livro_caixa">
+              <PropertyRef Name="Id_livro" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1434,16 +1542,20 @@
           <EntitySet Name="cliente_vendedor" EntityType="Self.cliente_vendedor" store:Type="Tables" />
           <EntitySet Name="cnae" EntityType="Self.cnae" store:Type="Tables" />
           <EntitySet Name="conta_corrente" EntityType="Self.conta_corrente" store:Type="Tables" />
+          <EntitySet Name="contas_pagar" EntityType="Self.contas_pagar" store:Type="Tables" />
           <EntitySet Name="empresa" EntityType="Self.empresa" store:Type="Tables" />
           <EntitySet Name="familia_produto" EntityType="Self.familia_produto" store:Type="Tables" />
+          <EntitySet Name="filial" EntityType="Self.filial" store:Type="Tables" />
           <EntitySet Name="formaspagvendas" EntityType="Self.formaspagvendas" store:Type="Tables" />
           <EntitySet Name="funcao" EntityType="Self.funcao" store:Type="Tables" />
           <EntitySet Name="funcao_perfil" EntityType="Self.funcao_perfil" store:Type="Tables" />
+          <EntitySet Name="item_livro_caixa" EntityType="Self.item_livro_caixa" store:Type="Tables" />
           <EntitySet Name="itempedido" EntityType="Self.itempedido" store:Type="Tables" />
           <EntitySet Name="itempedido_imposto" EntityType="Self.itempedido_imposto" store:Type="Tables" />
           <EntitySet Name="itempedido_infoadic" EntityType="Self.itempedido_infoadic" store:Type="Tables" />
           <EntitySet Name="itempedido_otica" EntityType="Self.itempedido_otica" store:Type="Tables" />
           <EntitySet Name="itempedido_produto" EntityType="Self.itempedido_produto" store:Type="Tables" />
+          <EntitySet Name="livro_caixa" EntityType="Self.livro_caixa" store:Type="Tables" />
           <EntitySet Name="motivo_entrega" EntityType="Self.motivo_entrega" store:Type="Tables" />
           <EntitySet Name="movimento" EntityType="Self.movimento" store:Type="Tables" />
           <EntitySet Name="pais" EntityType="Self.pais" store:Type="Tables" />
@@ -1503,6 +1615,10 @@
             <End Role="vendedor" EntitySet="vendedor" />
             <End Role="cliente_vendedor" EntitySet="cliente_vendedor" />
           </AssociationSet>
+          <AssociationSet Name="FK_filial_empresa" Association="Self.FK_filial_empresa">
+            <End Role="empresa" EntitySet="empresa" />
+            <End Role="filial" EntitySet="filial" />
+          </AssociationSet>
           <AssociationSet Name="FK_funcao_perfil_funcao1" Association="Self.FK_funcao_perfil_funcao1">
             <End Role="funcao" EntitySet="funcao" />
             <End Role="funcao_perfil" EntitySet="funcao_perfil" />
@@ -1510,6 +1626,10 @@
           <AssociationSet Name="FK_funcao_perfil_perfil1" Association="Self.FK_funcao_perfil_perfil1">
             <End Role="perfil" EntitySet="perfil" />
             <End Role="funcao_perfil" EntitySet="funcao_perfil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_item_livro_livro" Association="Self.FK_item_livro_livro">
+            <End Role="livro_caixa" EntitySet="livro_caixa" />
+            <End Role="item_livro_caixa" EntitySet="item_livro_caixa" />
           </AssociationSet>
           <AssociationSet Name="FK_itempedido_imposto_itempedido" Association="Self.FK_itempedido_imposto_itempedido">
             <End Role="itempedido" EntitySet="itempedido" />
@@ -1868,6 +1988,18 @@
             <End Role="Vendedor" EntitySet="Vendedors1" />
             <End Role="Vendedor_Localidade" EntitySet="Vendedor_Localidade1" />
           </AssociationSet>
+          <EntitySet Name="Contas_Pagar1" EntityType="Model.Contas_Pagar" />
+          <EntitySet Name="Filials1" EntityType="Model.Filial" />
+          <EntitySet Name="Item_Livro_Caixa1" EntityType="Model.Item_Livro_Caixa" />
+          <EntitySet Name="Livro_Caixa1" EntityType="Model.Livro_Caixa" />
+          <AssociationSet Name="FK_item_livro_livro" Association="Model.FK_item_livro_livro">
+            <End Role="livro_caixa" EntitySet="Livro_Caixa1" />
+            <End Role="item_livro_caixa" EntitySet="Item_Livro_Caixa1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_filial_empresa" Association="Model.FK_filial_empresa">
+            <End Role="Empresa" EntitySet="Empresas1" />
+            <End Role="filial" EntitySet="Filials1" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Caixa">
           <Key>
@@ -1949,6 +2081,8 @@
           <Property Name="bloqueado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="importado_api" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="cnae" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="obsEndereco" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="obsTelefonesEmail" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="inclusao" Type="DateTime" Precision="3" />
           <Property Name="usuario_inclusao" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="alteracao" Type="DateTime" Precision="3" />
@@ -1963,6 +2097,8 @@
           <NavigationProperty Name="cliente_transportadora1" Relationship="Model.fk_cliente_transportadora_transportadora1" FromRole="cliente" ToRole="cliente_transportadora" />
           <NavigationProperty Name="cliente_vendedor" Relationship="Model.FK_cliente_vendedor_cliente1" FromRole="cliente" ToRole="cliente_vendedor" />
           <NavigationProperty Name="pedido_otica1" Relationship="Model.FK_pedido_otica_transportadora1" FromRole="cliente" ToRole="pedido_otica" />
+          <Property Name="Id_empresa" Type="Int64" />
+          <Property Name="Id_filial" Type="Int64" />
         </EntityType>
         <EntityType Name="Cliente_Parcela">
           <Key>
@@ -2090,6 +2226,7 @@
           <Property Name="inativa" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="gera_nfse" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="optante_simples_nacional" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="filials" Relationship="Model.FK_filial_empresa" FromRole="Empresa" ToRole="filial" />
         </EntityType>
         <EntityType Name="Familia_Produto">
           <Key>
@@ -2561,6 +2698,8 @@
           <NavigationProperty Name="caixa" Relationship="Model.FK_pedido_otica_caixa1" FromRole="pedido_otica" ToRole="caixa" />
           <NavigationProperty Name="pedido_otica_infoadic" Relationship="Model.fk_pedido_otica_infoadic1" FromRole="pedido_otica" ToRole="pedido_otica_infoadic" />
           <NavigationProperty Name="pedido_otica_parcelas" Relationship="Model.FK_pedido_otica_parcelas_pedido1" FromRole="pedido_otica" ToRole="pedido_otica_parcelas" />
+          <Property Name="Id_empresa" Type="Int64" />
+          <Property Name="Id_filial" Type="Int64" />
         </EntityType>
         <EntityType Name="Pedido_Otica_InfoAdic">
           <Key>
@@ -2832,6 +2971,8 @@
           <Property Name="usuario_alteracao" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="inativo" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="perfil" Relationship="Model.FK_usuario_perfil1" FromRole="usuario" ToRole="perfil" />
+          <Property Name="Id_empresa" Type="Int64" />
+          <Property Name="Id_filial" Type="Int64" />
         </EntityType>
         <EntityType Name="Vendedor">
           <Key>
@@ -3373,6 +3514,109 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Contas_Pagar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_fornecedor" Type="Int64" />
+          <Property Name="Documento" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="valor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="vencimento" Type="DateTime" Precision="3" />
+          <Property Name="categoria" Type="Int64" />
+          <Property Name="previsao" Type="DateTime" Precision="3" />
+          <Property Name="pago" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Filial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_empresa" Type="Int64" />
+          <Property Name="codigo_filial" Type="Int64" />
+          <Property Name="codigo_filial_integracao" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="cnpj" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="razao_social" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="nome_fantasia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="logradouro" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="endereco" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="endereco_numero" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="complemento" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="bairro" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="cidade" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="estado" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
+          <Property Name="cep" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="codigo_pais" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="data_adesao_sn" Type="DateTime" Precision="3" />
+          <Property Name="telefone1_ddd" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="telefone1_numero" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="telefone2_ddd" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="telefone2_numero" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="fax_ddd" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="fax_numero" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="website" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="cnae" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="cnae_municipal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="inscricao_estadual" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="inscricao_municipal" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="inscricao_suframa" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="regime_tributario" Type="Int16" />
+          <Property Name="inativa" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="gera_nfse" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="optante_simples_nacional" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="empresa" Relationship="Model.FK_filial_empresa" FromRole="filial" ToRole="Empresa" />
+        </EntityType>
+        <EntityType Name="Item_Livro_Caixa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_livro" Type="Int64" />
+          <Property Name="tipo" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="descricao" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="documento" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="valor" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="livro_caixa" Relationship="Model.FK_item_livro_livro" FromRole="item_livro_caixa" ToRole="livro_caixa" />
+        </EntityType>
+        <EntityType Name="Livro_Caixa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data" Type="DateTime" Precision="3" />
+          <Property Name="saldo_inicial" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="saldo_final" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="item_livro_caixa" Relationship="Model.FK_item_livro_livro" FromRole="livro_caixa" ToRole="item_livro_caixa" />
+        </EntityType>
+        <Association Name="FK_item_livro_livro">
+          <End Type="Model.Livro_Caixa" Role="livro_caixa" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.Item_Livro_Caixa" Role="item_livro_caixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="livro_caixa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="item_livro_caixa">
+              <PropertyRef Name="Id_livro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_filial_empresa">
+          <End Type="Model.Empresa" Role="Empresa" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.Filial" Role="filial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="filial">
+              <PropertyRef Name="Id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3424,6 +3668,10 @@
           <EntitySetMapping Name="Clientes1">
             <EntityTypeMapping TypeName="Model.Cliente">
               <MappingFragment StoreEntitySet="cliente">
+                <ScalarProperty Name="obsTelefonesEmail" ColumnName="obsTelefonesEmail" />
+                <ScalarProperty Name="obsEndereco" ColumnName="obsEndereco" />
+                <ScalarProperty Name="Id_filial" ColumnName="Id_filial" />
+                <ScalarProperty Name="Id_empresa" ColumnName="Id_empresa" />
                 <ScalarProperty Name="nascimento" ColumnName="nascimento" />
                 <ScalarProperty Name="sincronizar" ColumnName="sincronizar" />
                 <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
@@ -3984,6 +4232,8 @@
           <EntitySetMapping Name="Pedido_Otica1">
             <EntityTypeMapping TypeName="Model.Pedido_Otica">
               <MappingFragment StoreEntitySet="pedido_otica">
+                <ScalarProperty Name="Id_filial" ColumnName="Id_filial" />
+                <ScalarProperty Name="Id_empresa" ColumnName="Id_empresa" />
                 <ScalarProperty Name="data_cancelamento" ColumnName="data_cancelamento" />
                 <ScalarProperty Name="motivo_cancelamento" ColumnName="motivo_cancelamento" />
                 <ScalarProperty Name="cancelado" ColumnName="cancelado" />
@@ -4294,6 +4544,8 @@
           <EntitySetMapping Name="Usuarios1">
             <EntityTypeMapping TypeName="Model.Usuario">
               <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="Id_filial" ColumnName="Id_filial" />
+                <ScalarProperty Name="Id_empresa" ColumnName="Id_empresa" />
                 <ScalarProperty Name="inativo" ColumnName="inativo" />
                 <ScalarProperty Name="usuario_alteracao" ColumnName="usuario_alteracao" />
                 <ScalarProperty Name="alteracao" ColumnName="alteracao" />
@@ -4324,6 +4576,82 @@
               <MappingFragment StoreEntitySet="vendedor_localidade">
                 <ScalarProperty Name="Id_localidade" ColumnName="Id_localidade" />
                 <ScalarProperty Name="Id_vendedor" ColumnName="Id_vendedor" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contas_Pagar1">
+            <EntityTypeMapping TypeName="Model.Contas_Pagar">
+              <MappingFragment StoreEntitySet="contas_pagar">
+                <ScalarProperty Name="pago" ColumnName="pago" />
+                <ScalarProperty Name="previsao" ColumnName="previsao" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="vencimento" ColumnName="vencimento" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="Documento" ColumnName="Documento" />
+                <ScalarProperty Name="Id_fornecedor" ColumnName="Id_fornecedor" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Filials1">
+            <EntityTypeMapping TypeName="Model.Filial">
+              <MappingFragment StoreEntitySet="filial">
+                <ScalarProperty Name="optante_simples_nacional" ColumnName="optante_simples_nacional" />
+                <ScalarProperty Name="gera_nfse" ColumnName="gera_nfse" />
+                <ScalarProperty Name="inativa" ColumnName="inativa" />
+                <ScalarProperty Name="regime_tributario" ColumnName="regime_tributario" />
+                <ScalarProperty Name="inscricao_suframa" ColumnName="inscricao_suframa" />
+                <ScalarProperty Name="inscricao_municipal" ColumnName="inscricao_municipal" />
+                <ScalarProperty Name="inscricao_estadual" ColumnName="inscricao_estadual" />
+                <ScalarProperty Name="cnae_municipal" ColumnName="cnae_municipal" />
+                <ScalarProperty Name="cnae" ColumnName="cnae" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fax_numero" ColumnName="fax_numero" />
+                <ScalarProperty Name="fax_ddd" ColumnName="fax_ddd" />
+                <ScalarProperty Name="telefone2_numero" ColumnName="telefone2_numero" />
+                <ScalarProperty Name="telefone2_ddd" ColumnName="telefone2_ddd" />
+                <ScalarProperty Name="telefone1_numero" ColumnName="telefone1_numero" />
+                <ScalarProperty Name="telefone1_ddd" ColumnName="telefone1_ddd" />
+                <ScalarProperty Name="data_adesao_sn" ColumnName="data_adesao_sn" />
+                <ScalarProperty Name="codigo_pais" ColumnName="codigo_pais" />
+                <ScalarProperty Name="cep" ColumnName="cep" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="cidade" ColumnName="cidade" />
+                <ScalarProperty Name="bairro" ColumnName="bairro" />
+                <ScalarProperty Name="complemento" ColumnName="complemento" />
+                <ScalarProperty Name="endereco_numero" ColumnName="endereco_numero" />
+                <ScalarProperty Name="endereco" ColumnName="endereco" />
+                <ScalarProperty Name="logradouro" ColumnName="logradouro" />
+                <ScalarProperty Name="nome_fantasia" ColumnName="nome_fantasia" />
+                <ScalarProperty Name="razao_social" ColumnName="razao_social" />
+                <ScalarProperty Name="cnpj" ColumnName="cnpj" />
+                <ScalarProperty Name="codigo_filial_integracao" ColumnName="codigo_filial_integracao" />
+                <ScalarProperty Name="codigo_filial" ColumnName="codigo_filial" />
+                <ScalarProperty Name="Id_empresa" ColumnName="Id_empresa" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Item_Livro_Caixa1">
+            <EntityTypeMapping TypeName="Model.Item_Livro_Caixa">
+              <MappingFragment StoreEntitySet="item_livro_caixa">
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="documento" ColumnName="documento" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="Id_livro" ColumnName="Id_livro" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Livro_Caixa1">
+            <EntityTypeMapping TypeName="Model.Livro_Caixa">
+              <MappingFragment StoreEntitySet="livro_caixa">
+                <ScalarProperty Name="saldo_final" ColumnName="saldo_final" />
+                <ScalarProperty Name="saldo_inicial" ColumnName="saldo_inicial" />
+                <ScalarProperty Name="data" ColumnName="data" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

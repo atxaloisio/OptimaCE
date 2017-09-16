@@ -37,6 +37,7 @@ namespace prjbase
 
             lblAvaliacao.Parent = this;
             lblAvaliacao.BackColor = Color.Transparent;
+
             lblAvaliacao.Text = string.Empty;
             if (!string.IsNullOrEmpty(_MensagemTrial))
             {
@@ -47,16 +48,19 @@ namespace prjbase
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
+            
             usuarioBLL = new UsuarioBLL();
             try
             {
-
+                this.Cursor = Cursors.WaitCursor;
 
 #if DEBUG
                 Program.usuario_logado = usuarioBLL.Localizar(1);
+                stUsuario.UsuarioLogado = Program.usuario_logado;
                 this.DialogResult = DialogResult.OK;
 
                 //Program.usuario_logado = usuarioBLL.loginSistema(txtUsuaio.Text, txtSenha.Text);
+                //stUsuario.UsuarioLogado = Program.usuario_logado;
 
                 //if (Program.usuario_logado != null)
                 //{
@@ -68,7 +72,8 @@ namespace prjbase
                 //    this.DialogResult = DialogResult.None;
                 //}
 #else
-            Program.usuario_logado = usuarioBLL.loginSistema(txtUsuaio.Text, txtSenha.Text);
+                Program.usuario_logado = usuarioBLL.loginSistema(txtUsuaio.Text, txtSenha.Text);
+                stUsuario.UsuarioLogado = Program.usuario_logado;
 
                 if (Program.usuario_logado != null)
                 {
@@ -80,6 +85,7 @@ namespace prjbase
                     this.DialogResult = DialogResult.None;
                 }
 #endif
+                this.Cursor = Cursors.Default;
             }
             catch (Exception ex)
             {

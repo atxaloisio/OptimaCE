@@ -197,11 +197,14 @@ namespace prjbase
                         txtValorTotal.Text = ValorTotal.ToString("N2");
                     }
 
+                    txtUsuarioInc.Text = pedido_otica.usuario_inclusao;
+                    txtDtInc.Text = pedido_otica.inclusao.ToString();
+
                     if (pedido_otica.cancelado == "S")
                     {
                         lblPedidoCancelado.Visible = true;
 
-                        foreach (Control item in pnlPrincipal.Controls)
+                        foreach (Control item in pnlJanela.Controls)
                         {
                             item.Enabled = false;
                             btnSalvar.Enabled = false;
@@ -265,7 +268,7 @@ namespace prjbase
             {
                 frmRelPedido_Otica relatorio = new frmRelPedido_Otica();
                 relatorio.Id = id;
-                relatorio.ImprimirDireto();
+                relatorio.ImprimirDireto(new PageProps(8.27, 11.69, 0.19685, 0.19685, 0.19685, 0.19685));
                 pedido_OticaBLL = new Pedido_OticaBLL();
                 Pedido_Otica pedido_otica = pedido_OticaBLL.Localizar(id);
 
@@ -535,7 +538,16 @@ namespace prjbase
             }
 
             #endregion
-            
+
+            if (Id != null)
+            {
+                pedido_Otica.usuario_inclusao = txtUsuarioInc.Text;
+                if (!string.IsNullOrEmpty(txtDtInc.Text))
+                {
+                    pedido_Otica.inclusao = Convert.ToDateTime(txtDtInc.Text);
+                }
+            }
+
             return pedido_Otica;
         }
 
@@ -2150,6 +2162,11 @@ namespace prjbase
             }
 
             txtValorTotal.Text = Valor_Total.ToString("N2");
+        }
+
+        private void frmCadEditPedido_Laboratorio_Activated(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
         }
     }
 }

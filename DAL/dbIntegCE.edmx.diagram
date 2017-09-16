@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="81503ad31e7c475db8655c74f68c3001" Name="Diagram1" ZoomLevel="65">
+      <Diagram DiagramId="81503ad31e7c475db8655c74f68c3001" Name="Diagram1" ZoomLevel="82">
         <EntityTypeShape EntityType="Model.Caixa" Width="1.5" PointX="6" PointY="60.5" />
         <EntityTypeShape EntityType="Model.Categoria" Width="1.5" PointX="5.75" PointY="1.25" />
         <EntityTypeShape EntityType="Model.Cidade" Width="1.5" PointX="3.75" PointY="61.125" />
@@ -95,6 +95,12 @@
         <AssociationConnector Association="Model.FK_produto_ibpt_produto" />
         <AssociationConnector Association="Model.FK_cliente_vendedor_vendedor" />
         <AssociationConnector Association="Model.FK_vendedor_localidade_vendedor" />
+        <EntityTypeShape EntityType="Model.Contas_Pagar" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.Filial" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="Model.Item_Livro_Caixa" Width="1.5" PointX="13" PointY="10" />
+        <EntityTypeShape EntityType="Model.Livro_Caixa" Width="1.5" PointX="10.75" PointY="10.125" />
+        <AssociationConnector Association="Model.FK_item_livro_livro" />
+        <AssociationConnector Association="Model.FK_filial_empresa" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

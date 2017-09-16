@@ -102,5 +102,31 @@ namespace Utils
                 con.Dispose();
             }
         }
+
+        public static void DelParametro(string chave)
+        {
+            string ConnectionString = ConfigurationManager.ConnectionStrings["prjbase.Properties.Settings.ConnectionString"].ConnectionString;
+            string retorno = string.Empty;
+            //MySqlConnection con = new MySqlConnection(ConnectionString);
+            SqlCeConnection con = new SqlCeConnection(ConnectionString);
+            try
+            {
+                con.Open();
+                //MySqlCommand cmd = new MySqlCommand("insert into parametro (chave,valor) values(?chave,?valor)", con);
+                SqlCeCommand cmd = new SqlCeCommand("delete from parametro where chave = @chave", con);
+                cmd.Parameters.AddWithValue("@chave", chave);                
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+                con.Dispose();
+            }            
+        }
     }
 }

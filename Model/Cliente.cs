@@ -62,11 +62,15 @@ namespace Model
         public string bloqueado { get; set; }
         public string importado_api { get; set; }
         public string cnae { get; set; }
+        public string obsEndereco { get; set; }
+        public string obsTelefonesEmail { get; set; }
         public Nullable<System.DateTime> inclusao { get; set; }
         public string usuario_inclusao { get; set; }
         public Nullable<System.DateTime> alteracao { get; set; }
         public string usuario_alteracao { get; set; }
         public string sincronizar { get; set; }
+        public Nullable<long> Id_empresa { get; set; }
+        public Nullable<long> Id_filial { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cliente_Tag> cliente_tag { get; set; }

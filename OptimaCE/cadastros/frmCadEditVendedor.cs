@@ -71,6 +71,7 @@ namespace prjbase
                     
                     if (Vendedor.Id != 0)
                     {
+                        Id = Vendedor.Id;
                         txtCodInt.Text = Vendedor.codInt;
                     }
 
@@ -140,6 +141,11 @@ namespace prjbase
             base.Limpar(control);
 
             txtNome.Focus();
-        }                
+        }
+
+        private void frmCadEditVendedor_Activated(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+        }
     }
 }
